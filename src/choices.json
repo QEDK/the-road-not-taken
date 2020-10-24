@@ -266,6 +266,24 @@
             ]
           }
         ]
+      },
+      {
+        "You return it and buy a new one.":[
+          {
+            "You do not get a good enough price for your refrigerator.":[
+              "continue",
+              2,
+              -5
+            ]
+          },
+          {
+            "Your new refrigerator breaks down":[
+              "continue",
+              -30,
+              -20
+            ]
+          }
+        ]
       }
     ]
   },
@@ -303,6 +321,24 @@
               "continue",
               -5,
               -10
+            ]
+          }
+        ]
+      },
+      {
+        "You ask an office-friend of yours to do it for you.":[
+          {
+            "They make an amazing presentation":[
+              "continue",
+              10,
+              5
+            ]
+          },
+          {
+            "They end up making a presentation on the wrong topic":[
+              "continue",
+              -15,
+              -5
             ]
           }
         ]
@@ -475,6 +511,118 @@
               "continue",
               -10,
               -5
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "You find out that your friend's partner is cheating on them. What will you do?":[
+      {
+        "You decide to hide it from them because you don't want to hurt them.":[
+          {
+            "They found out that you knew about it and broke relationships with you as well.":[
+              "continue",
+              0,
+              -10
+            ]
+          },
+          {
+            "They live an unaware but a happy life with their partner.":[
+              "continue",
+              0,
+              20
+            ]
+          }
+        ]
+      },
+      {
+        "You tell them about it.":[
+          {
+            "They knock you down because they don't believe you.":[
+              "continue",
+              -5,
+              -20
+            ]
+          },
+          {
+            "They thank you for letting them know and you guys end up having a stronger bond.":[
+              "continue",
+              5,
+              20
+            ]
+          }
+        ]
+      },
+      {
+        "You warn their partner and tell them to not do it again":[
+          {
+            "They realise their mistake and never do it again.":[
+              "continue",
+              0,
+              10
+            ]
+          },
+          {
+            "They become more vigilant about hiding it and make sure that you don't find out about it again.":[
+              "continue",
+              0,
+              -20
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Your friend tells you that they committed a crime but some innocent person has been arrested for it. What will you do?":[
+      {
+        "Go to the police and tell them what you know.":[
+          {
+            "The government gives you a monetary reward for your honesty.":[
+              "continue",
+              15,
+              10
+            ]
+          },
+          {
+            "Your friend killed you while you were on your way to the police station.":[
+              "end"
+            ] 
+          }
+        ]
+      },
+      {
+        "Encourage your friend to confess and warn him if he does not do so, you will tell.":[
+          {
+            "Your friend got scared of you and killed you.":[
+              "end"
+            ]
+          },
+          {
+            "Your friend runs off to an unknown country and the police arrests you because you didn't report him.":[
+              "continue",
+              -20,
+              -35
+            ]
+          }
+        ]
+      },
+      {
+        "Say nothing because you will not betray a friend’s confidence":[
+          {
+            "The police finds out about it and arrests both of you":[
+              "continue",
+              -20,
+              -30
+            ]
+          },
+          {
+            "You and your friend end up being the best of friends who never break each other's trust.":[
+              "continue",
+              0,
+              20
             ]
           }
         ]
