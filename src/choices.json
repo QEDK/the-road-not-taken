@@ -628,5 +628,126 @@
         ]
       }
     ]
+  },
+  {
+    "You wake up to find your house on fire, what do you do now?!":[
+      {
+        "Call the fire department and escape to the roof.":[
+          {
+            "The fire department quickly arrives and puts out the fire.":[
+              "continue",
+              -15,
+              5
+            ]
+          },
+          {
+            "You get stranded on the roof for hours but survive to tell the tale.":[
+              "continue",
+              -15,
+              -5
+            ] 
+          }
+        ]
+      },
+      {
+        "Stop, drop and roll!":[
+          {
+            "You get engulfed by toxic fumes and fall into a coma you never wake up from.":[
+              "end"
+            ]
+          },
+          {
+            "You suffer serious burns until the fire department douses the fire and rescues you.":[
+              "continue",
+              -20,
+              -20
+            ]
+          }
+        ]
+      },
+      {
+        "Call the fire department and try to run out into the street outside.":[
+          {
+            "You trip and fall while going down the stairs and end up suffering serious injuries.":[
+              "continue",
+              -20,
+              -20
+            ]
+          },
+          {
+            "You run out to the street and see your building collapse on itself.":[
+              "continue",
+              -25,
+              -10
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Your friends are having a party but you're not invited. Go anyway?":[
+      {
+        "Who cares? Crash the party!":[
+          {
+            "Your friends are uncomfortable and escort you out.":[
+              "continue",
+              0,
+              -10
+            ]
+          },
+          {
+            "Your friends are surprised to see you but are glad to have you around.":[
+              "continue",
+              0,
+              5
+            ] 
+          }
+        ]
+      },
+      {
+        "Call them to tell them they are bad friends.":[
+          {
+            "Your friends apologize for forgetting to call you.":[
+              "continue",
+              0,
+              5
+            ]
+          },
+          {
+            "Your friends laugh at your face and say that they don't want you to attend any parties.":[
+              "continue",
+              0,
+              -15
+            ]
+          }
+        ]
+      },
+      {
+        "Go out and have a jog.":[
+          {
+            "You randomly meet your highschool sweetheart after a decade.":[
+              "continue",
+              0,
+              15
+            ]
+          },
+          {
+            "You land up at Starbucks for a coffee. While leaving, you find a $10 note.":[
+              "continue",
+              5,
+              5
+            ]
+          },
+          {
+            "You get mugged and lose all the money in your wallet.":[
+              "continue",
+              -5,
+              -5
+            ]
+          }
+        ]
+      }
+    ]
   }
 ]
