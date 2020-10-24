@@ -749,5 +749,289 @@
         ]
       }
     ]
+  },
+  {
+    "When making a purchase at a local store, you are given extra change.":[
+      {
+        "Give the extra money back.":[
+          {
+            "The shopkeeper gives you a chocolate out of gratitude.":[
+              "continue",
+              0,
+              20
+            ]
+          },
+          {
+            "The shopkeeper keeps the money and says nothing.":[
+              "continue",
+              0,
+              0
+            ] 
+          }
+        ]
+      },
+      {
+        "Use the money for personal needs.":[
+          {
+            "You buy yourself a delicious pastry.":[
+              "continue",
+              10,
+              20
+            ]
+          },
+          {
+            "You buy yourself a delicious pastry but it falls on the ground.":[
+              "continue",
+              -20,
+              -5
+            ]
+          }
+        ]
+      },
+      {
+        "Give the change to a homeless person.":[
+          {
+            "They thank you and give blessings.":[
+              "continue",
+              0,
+              30
+            ]
+          },
+          {
+            "They pity you for giving such less amount.":[
+              "continue",
+              0,
+              -5
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Your neighbour leaves their dog out in all kinds of weather. The poor animal frequently looks like it is miserable. What will you do?":[
+      {
+        "Report to animal care authorities in your residences.":[
+          {
+            "The neighbour found out that you reported him. They started spreading rumours about you.":[
+              "continue",
+              0,
+              -20
+            ]
+          },
+          {
+            "The authorities grant you a monetary reward.":[
+              "continue",
+              10,
+              10
+            ] 
+          }
+        ]
+      },
+      {
+        "Fight your neighbour.":[
+          {
+            "They turned out to be a ninja and they beat you to death.":[
+              "end"
+            ]
+          },
+          {
+            "You broke their teeth and won the fight.":[
+              "continue",
+              10,
+              20
+            ]
+          }
+        ]
+      },
+      {
+        "Say nothing.":[
+          {
+            "The pet keeps facing cruelty":[
+              "continue",
+              0,
+              -5
+            ]
+          },
+          {
+            "The authorities condemn your dishonesty.":[
+              "continue",
+              -10,
+              -10
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "A friend gives you a gift for your birthday. Unfortunately, it is a type of perfume you are extremely allergic to. What will you do?":[
+      {
+        "Throw away the present without letting the friend know.":[
+          {
+            "The friend thinks you really liked the gift.":[
+              "continue",
+              10,
+              10
+            ]
+          },
+          {
+            "You friend finds out got rid of it.":[
+              "continue",
+              0,
+              -30
+            ]
+          }
+        ]
+      },
+      {
+        "Tell the truth and ask for receipt so that you can return it.":[
+          {
+            "The friend feels bad and can't find the receipt.":[
+              "continue",
+              0,
+              -10
+            ]
+          },
+          {
+            "You get yourself a nice deodrant in return.":[
+              "continue",
+              10,
+              30
+            ]
+          }
+        ]
+      },
+      {
+        "Say and do nothing about it.":[
+          {
+            "The perfume bottle falls and breaks causing rashes on your skin.":[
+              "continue",
+              -10,
+              -30
+            ]
+          },
+          {
+            "You friend finds out that you don't use it.":[
+              "continue",
+              0,
+              -20
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Your ex-girlfriend is dying from a rare disease and the treatment is both risky and expensive. What will you do?":[
+      {
+        "Given in all of your money to save their life.":[
+          {
+            "They die due to organ failure during surgery":[
+              "continue",
+              -40,
+              -15
+            ]
+          },
+          {
+            "They live. Flattered by all that you have done for them, they ask you out.":[
+              "end"
+            ]
+          }
+        ]
+      },
+      {
+        "Leave them on their own because you're not together anymore.":[
+          {
+            "They die and you feel guilty about it.":[
+              "continue",
+              0,
+              -30
+            ]
+          },
+          {
+            "You don't know if they're dead or alive right now.":[
+              "continue",
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "Setup a fundraiser for them.":[
+          {
+            "Not a lot of people contributed so you had to chip in personal cash.":[
+              "continue",
+              -5,
+              10
+            ]
+          },
+          {
+            "A lot of people contribute and you are able to save their life.":[
+              "continue",
+              20,
+              40
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "You witness a man rob a bank, but instead of keeping the money for himself, he donates it to a local orphanage. What will you do?":[
+      {
+        "Go to the police and tell them what you know.":[
+          {
+            "The government gives you a monetary reward for your honesty.":[
+              "continue",
+              15,
+              10
+            ]
+          },
+          {
+            "The robber killed you while you were on your way to the police station.":[
+              "end"
+            ]
+          }
+        ]
+      },
+      {
+        "Say nothing because it was for a good cause.":[
+          {
+            "The police finds out about it and arrests both of you":[
+              "continue",
+              0,
+              -30
+            ]
+          },
+          {
+            "Nobody finds out and you feel happy about what you did.":[
+              "continue",
+              0,
+              10
+            ]
+          }
+        ]
+      },
+      {
+        "Help arrest the robber and donate personal money to the same charity.":[
+          {
+            "People from the charity depsise your action":[
+              "continue",
+              0,
+              -20
+            ]
+          },
+          {
+            "Turns out, the people from charity didn't want dirty money and were glad you reported the robber.":[
+              "continue",
+              20,
+              40
+            ]
+          }
+        ]
+      }
+    ]
   }
 ]
