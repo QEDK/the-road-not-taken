@@ -1035,5 +1035,229 @@
         ]
       }
     ]
+  },
+  {
+    "Some people are chasing you on the street. What will be your next move?":[
+      {
+        "Try to blend into the crowd.":[
+          {
+            "They find you and beat you into a pulp.":[
+              "continue",
+              -10,
+              -15
+            ]
+          },
+          {
+            "They try searching for you in the crowd and give up after a while.":[
+              "continue",
+              0,
+              5
+            ]
+          }
+        ]
+      },
+      {
+        "Run away as fast as possible.":[
+          {
+            "You trip badly over a rock that lands you in a coma.":[
+              "continue",
+              0,
+              -15
+            ]
+          },
+          {
+            "They find you and beat you into a pulp.":[
+              "continue",
+              -10,
+              -15
+            ]
+          }
+        ]
+      },
+      {
+        "Call the police and quietly make your way into an abandoned building.":[
+          {
+            "The police arrive at your location and escort you back home safely.":[
+              "continue",
+              0,
+              5
+            ]
+          },
+          {
+            "The abandoned building has an eery feeling. Before you know it, someone grabs your face from behind.":[
+              "end"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "It's Friday and you feel like spending, so you go to a nearby casino. You're at the roulette table, what do you choose?":[
+      {
+        "Red":[
+          {
+            "You almost lose all your life savings.":[
+              "continue",
+              -20,
+              -10
+            ]
+          },
+          {
+            "You win enough to buy a new house.":[
+              "continue",
+              20,
+              20
+            ]
+          },
+          {
+            "You lose a bit of your money.":[
+              "continue",
+              -10,
+              -5
+            ]
+          }
+        ]
+      },
+      {
+        "Black":[
+          {
+            "You almost lose all your life savings.":[
+              "continue",
+              -20,
+              -10
+            ]
+          },
+          {
+            "You win enough money to buy a new Porsche.":[
+              "continue",
+              20,
+              20
+            ]
+          },
+          {
+            "You lose a bit of your money.":[
+              "continue",
+              -10,
+              -5
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "You find a lot of money deposited in your bank account suddenly. Should you notify someone?":[
+      {
+        "You tell your branch manager.":[
+          {
+            "The manager quickly rectifies the error and gives you a free trip for your honesty.":[
+              "continue",
+              0,
+              10
+            ]
+          },
+          {
+            "The bank removes the money from your account.":[
+              "continue",
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "You tell no one about it.":[
+          {
+            "No one finds out and you get to keep the money.":[
+              "continue",
+              20,
+              10
+            ]
+          },
+          {
+            "The bank finds out and takes the money back.":[
+              "continue",
+              0,
+              -5
+            ]
+          }
+        ]
+      },
+      {
+        "You try to keep it quiet but tell your closest friends.":[
+          {
+            "No one finds out and all of you spend the money on a lavish trip.":[
+              "continue",
+              20,
+              10
+            ]
+          },
+          {
+            "One of your friends turns out to be part of the mafia and makes you hand over the money forcefully.":[
+              "continue",
+              -10,
+              -10
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Would you like to go on a cruise? It's the best way to travel around the globe!":[
+      {
+        "I love being on a boat!":[
+          {
+            "You have an amazing trip around the world.":[
+              "continue",
+              -10,
+              25
+            ]
+          },
+          {
+            "On a particularly stormy night, you get swept aboard and drown.":[
+              "end"
+            ]
+          }
+        ]
+      },
+      {
+        "I would rather stay home.":[
+          {
+            "You don't go on the trip and waste your time doing nothing.":[
+              "continue",
+              0,
+              -10
+            ]
+          },
+          {
+            "You pick up a new bicycling hobby, you feel great.":[
+              "continue",
+              0,
+              15
+            ]
+          }
+        ]
+      },
+      {
+        "You decide to explore the mountains instead.":[
+          {
+            "You get stranded on the summit for days due to a blizzard but you eventually get rescued.":[
+              "continue",
+              -10,
+              -20
+            ]
+          },
+          {
+            "You meet a friendly mountaineer who guides you up and down the mountain safely and you relish the new experience.":[
+              "continue",
+              0,
+              25
+            ]
+          }
+        ]
+      }
+    ]
   }
 ]
