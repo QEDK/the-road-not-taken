@@ -1,0 +1,1263 @@
+[
+  {
+    "A homeless man tries to steal your wallet, should you get it back?":[
+      {
+        "Let him have it, your mom taught you that sharing is good.":[
+          {
+            "He runs away with your wallet.":[
+              "continue",
+              -10,
+              -5
+            ]
+          },
+          {
+            "He feels embarassed about stealing it and returns it.":[
+              "continue",
+              5,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "Fight him and get it back.":[
+          {
+            "You beat him up on the street to get it back. You end up feeling embarassed.":[
+              "continue",
+              5,
+              -10
+            ]
+          },
+          {
+            "He beats you up and you end up in the hospital.":[
+              "continue",
+              -10,
+              -10
+            ]
+          },
+          {
+            "His homeless friends join him and beat you, you succumb to your injuries.":[
+              "end"
+            ]
+          }
+        ]
+      },
+      {
+        "You request the bystanders to help you.":[
+          {
+            "No one helps you out and he runs away.":[
+              "continue",
+              -10,
+              -5
+            ]
+          },
+          {
+            "They accost the homeless man and make him return your wallet.":[
+              "continue",
+              5,
+              0
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "You don't want to go to a party today. What do you tell your friends?":[
+      {
+        "The truth, you don't want to go outside.":[
+          {
+            "They understand what you're saying and ask you to come the next time.":[
+              "continue",
+              0,
+              5
+            ]
+          },
+          {
+            "They land up at your house to pick you up for the party.":[
+              "continue",
+              0,
+              -10
+            ]
+          }
+        ]
+      },
+      {
+        "A lie, you say that you are sick.":[
+          {
+            "They believe you and ask you to come the next time.":[
+              "continue",
+              0,
+              0
+            ]
+          },
+          {
+            "They don't believe you and accuse you of lying.":[
+              "continue",
+              0,
+              -10
+            ]
+          }
+        ]
+      },
+      {
+        "Although unwilling, you tell them you will go the party.":[
+          {
+            "You feel uncomfortable and quite sick after dancing all night.":[
+              "continue",
+              0,
+              -10
+            ]
+          },
+          {
+            "You have a blast with all your friends.":[
+              "continue",
+              0,
+              10
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Your best friends have gotten into a fight. Should you help them resolve it?":[
+      {
+        "They are adults, let them deal with it.":[
+          {
+            "They resolve it among themselves without your help.":[
+              "continue",
+              0,
+              0
+            ]
+          },
+          {
+            "They force you to choose between them and you end up angering both of them.":[
+              "continue",
+              0,
+              -10
+            ]
+          }
+        ]
+      },
+      {
+        "They are your friends and you think they need your help.":[
+          {
+            "They resolve it thanks to your help and you feel quite happy.":[
+              "continue",
+              0,
+              20
+            ]
+          },
+          {
+            "They are annoyed at you for meddling but understand why you did it.":[
+              "continue",
+              0,
+              -10
+            ]
+          }
+        ]
+      },
+      {
+        "You choose to support the friend who you think is right.":[
+          {
+            "Your friend understands your point and agrees with you, resolving everything amicably.":[
+              "continue",
+              0,
+              10
+            ]
+          },
+          {
+            "Your friend gets annoyed at you for picking sides and asks you to stay away.":[
+              "continue",
+              0,
+              -10
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Your parents just told you that you're adopted, what do you do?":[
+      {
+        "It doesn't matter much to you, you brush it off.":[
+          {
+            "Your parents are glad.":[
+              "continue",
+              0,
+              5
+            ]
+          }
+        ]
+      },
+      {
+        "You flip out and choose to take it out on your parents.":[
+          {
+            "Your parents keep quite and listen to your insults.":[
+              "continue",
+              0,
+              -10
+            ]
+          },
+          {
+            "Your parents can't believe you are this ungrateful and they ask you to stay away.":[
+              "continue",
+              0,
+              -20
+            ]
+          }
+        ]
+      },
+      {
+        "You ask them about your biological parents.":[
+          {
+            "You feel uncomfortable after knowing the truth but don't mind.":[
+              "continue",
+              0,
+              -5
+            ]
+          },
+          {
+            "You are glad to have found such amazing parents.":[
+              "continue",
+              0,
+              20
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Your refrigerator stops working, what will you do now?":[
+      {
+        "You sell it for scrap.":[
+          {
+            "You get a bit of money from it but have to buy a new refrigerator.":[
+              "continue",
+              -5,
+              0
+            ]
+          },
+          {
+            "You end up having to give it away for free and have to buy a new refrigerator.":[
+              "continue",
+              -15,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "You choose to get it repaired.":[
+          {
+            "The repairman is able to fix it for cheap.":[
+              "continue",
+              -5,
+              10
+            ]
+          },
+          {
+            "The repairman charges you a lot and ends up not being able to fix it.":[
+              "continue",
+              -10,
+              -10
+            ]
+          }
+        ]
+      },
+      {
+        "You return it and buy a new one.":[
+          {
+            "You do not get a good enough price for your refrigerator.":[
+              "continue",
+              2,
+              -5
+            ]
+          },
+          {
+            "Your new refrigerator breaks down":[
+              "continue",
+              -30,
+              -20
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "You need to make a presentation for tomorrow. Do you work overtime?":[
+      {
+        "You stay back and finish the presentation.":[
+          {
+            "You get home completely exhausted and sleep it off.":[
+              "continue",
+              5,
+              -10
+            ]
+          },
+          {
+            "You get home and fall into a deep sleep, missing your morning alarm and also the meeting.":[
+              "continue",
+              -5,
+              -20
+            ]
+          }
+        ]
+      },
+      {
+        "You decide to go home and leave it for the morning.":[
+          {
+            "You manage to complete the presentation in the morning.":[
+              "continue",
+              5,
+              10
+            ]
+          },
+          {
+            "You cannot finish the presentation and your boss is furious at your performance.":[
+              "continue",
+              -5,
+              -10
+            ]
+          }
+        ]
+      },
+      {
+        "You ask an office-friend of yours to do it for you.":[
+          {
+            "They make an amazing presentation":[
+              "continue",
+              10,
+              5
+            ]
+          },
+          {
+            "They end up making a presentation on the wrong topic":[
+              "continue",
+              -15,
+              -5
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Nothing special is happening in your life right now. What will you do with your free time?":[
+      {
+        "Work relentlessly on something big.":[
+          {
+            "You feel glad about working on something you love.":[
+              "continue",
+              0,
+              10
+            ]
+          },
+          {
+            "You discover your next big thing.":[
+              "continue",
+              10,
+              20
+            ]
+          }
+        ]
+      },
+      {
+        "You decide to go out and relax.":[
+          {
+            "You have a pretty nice time.":[
+              "continue",
+              0,
+              5
+            ]
+          },
+          {
+            "You meet a few friends on the way and have fun.":[
+              "continue",
+              0,
+              10
+            ]
+          }
+        ]
+      },
+      {
+        "You stay home and do yoga.":[
+          {
+            "You feel pretty good after exercising.":[
+              "continue",
+              0,
+              5
+            ]
+          },
+          {
+            "You bend the wrong way and get injured.":[
+              "continue",
+              0,
+              -10
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "You crashed your parents' car, what do you do now?":[
+      {
+        "Ask your friends to help you out with the repair money.":[
+          {
+            "They help you out but you feel bad for asking.":[
+              "continue",
+              0,
+              -5
+            ]
+          },
+          {
+            "They convince you to come clean and your parents understand that accidents happen.":[
+              "continue",
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "You decide to come clean to your parents.":[
+          {
+            "Your parents understand that accidents happen.":[
+              "continue",
+              0,
+              0
+            ]
+          },
+          {
+            "Your parents get furious at you and make you pay for the repairs.":[
+              "continue",
+              -10,
+              -10
+            ]
+          }
+        ]
+      },
+      {
+        "You save up money and get it repaired before your parents can find out.":[
+          {
+            "The repairs are perfect and your parents don't find out.":[
+              "continue",
+              -10,
+              0
+            ]
+          },
+          {
+            "The repairs are imperfect and your parents get furious after realizing you crashed the car.":[
+              "continue",
+              -10,
+              -10
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "A man with a knife threatens you for all your belongings. What do you do?":[
+      {
+        "Give him everything you have!":[
+          {
+            "They run away with your belongings.":[
+              "continue",
+              -10,
+              -10
+            ]
+          },
+          {
+            "They run away with your belongings but get caught by the police a few hours later.":[
+              "continue",
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "You decide to confront them for their actions.":[
+          {
+            "You attack you and you get gravely injured.":[
+              "continue",
+              -10,
+              -20
+            ]
+          },
+          {
+            "You get stabbed in the ensuing fight and die without medical help.":[
+              "end"
+            ]
+          }
+        ]
+      },
+      {
+        "You decide to scream for help.":[
+          {
+            "Luckily, some bystanders hear your shouts and come to help you out and the man runs away.":[
+              "continue",
+              0,
+              5
+            ]
+          },
+          {
+            "No one can hear your shouts and the man runs away with your belongings.":[
+              "continue",
+              -10,
+              -5
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "You find out that your friend's partner is cheating on them. What will you do?":[
+      {
+        "You decide to hide it from them because you don't want to hurt them.":[
+          {
+            "They found out that you knew about it and broke relationships with you as well.":[
+              "continue",
+              0,
+              -10
+            ]
+          },
+          {
+            "They live an unaware but a happy life with their partner.":[
+              "continue",
+              0,
+              20
+            ]
+          }
+        ]
+      },
+      {
+        "You tell them about it.":[
+          {
+            "They knock you down because they don't believe you.":[
+              "continue",
+              -5,
+              -20
+            ]
+          },
+          {
+            "They thank you for letting them know and you guys end up having a stronger bond.":[
+              "continue",
+              5,
+              20
+            ]
+          }
+        ]
+      },
+      {
+        "You warn their partner and tell them to not do it again":[
+          {
+            "They realise their mistake and never do it again.":[
+              "continue",
+              0,
+              10
+            ]
+          },
+          {
+            "They become more vigilant about hiding it and make sure that you don't find out about it again.":[
+              "continue",
+              0,
+              -20
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Your friend tells you that they committed a crime but some innocent person has been arrested for it. What will you do?":[
+      {
+        "Go to the police and tell them what you know.":[
+          {
+            "The government gives you a monetary reward for your honesty.":[
+              "continue",
+              15,
+              10
+            ]
+          },
+          {
+            "Your friend killed you while you were on your way to the police station.":[
+              "end"
+            ] 
+          }
+        ]
+      },
+      {
+        "Encourage your friend to confess and warn him if he does not do so, you will tell.":[
+          {
+            "Your friend got scared of you and killed you.":[
+              "end"
+            ]
+          },
+          {
+            "Your friend runs off to an unknown country and the police arrests you because you didn't report him.":[
+              "continue",
+              -20,
+              -35
+            ]
+          }
+        ]
+      },
+      {
+        "Say nothing because you will not betray a friend’s confidence":[
+          {
+            "The police finds out about it and arrests both of you":[
+              "continue",
+              -20,
+              -30
+            ]
+          },
+          {
+            "You and your friend end up being the best of friends who never break each other's trust.":[
+              "continue",
+              0,
+              20
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "You wake up to find your house on fire, what do you do now?!":[
+      {
+        "Call the fire department and escape to the roof.":[
+          {
+            "The fire department quickly arrives and puts out the fire.":[
+              "continue",
+              -15,
+              5
+            ]
+          },
+          {
+            "You get stranded on the roof for hours but survive to tell the tale.":[
+              "continue",
+              -15,
+              -5
+            ] 
+          }
+        ]
+      },
+      {
+        "Stop, drop and roll!":[
+          {
+            "You get engulfed by toxic fumes and fall into a coma you never wake up from.":[
+              "end"
+            ]
+          },
+          {
+            "You suffer serious burns until the fire department douses the fire and rescues you.":[
+              "continue",
+              -20,
+              -20
+            ]
+          }
+        ]
+      },
+      {
+        "Call the fire department and try to run out into the street outside.":[
+          {
+            "You trip and fall while going down the stairs and end up suffering serious injuries.":[
+              "continue",
+              -20,
+              -20
+            ]
+          },
+          {
+            "You run out to the street and see your building collapse on itself.":[
+              "continue",
+              -25,
+              -10
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Your friends are having a party but you're not invited. Go anyway?":[
+      {
+        "Who cares? Crash the party!":[
+          {
+            "Your friends are uncomfortable and escort you out.":[
+              "continue",
+              0,
+              -10
+            ]
+          },
+          {
+            "Your friends are surprised to see you but are glad to have you around.":[
+              "continue",
+              0,
+              5
+            ] 
+          }
+        ]
+      },
+      {
+        "Call them to tell them they are bad friends.":[
+          {
+            "Your friends apologize for forgetting to call you.":[
+              "continue",
+              0,
+              5
+            ]
+          },
+          {
+            "Your friends laugh at your face and say that they don't want you to attend any parties.":[
+              "continue",
+              0,
+              -15
+            ]
+          }
+        ]
+      },
+      {
+        "Go out and have a jog.":[
+          {
+            "You randomly meet your highschool sweetheart after a decade.":[
+              "continue",
+              0,
+              15
+            ]
+          },
+          {
+            "You land up at Starbucks for a coffee. While leaving, you find a $10 note.":[
+              "continue",
+              5,
+              5
+            ]
+          },
+          {
+            "You get mugged and lose all the money in your wallet.":[
+              "continue",
+              -5,
+              -5
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "When making a purchase at a local store, you are given extra change.":[
+      {
+        "Give the extra money back.":[
+          {
+            "The shopkeeper gives you a chocolate out of gratitude.":[
+              "continue",
+              0,
+              10
+            ]
+          },
+          {
+            "The shopkeeper keeps the money and says nothing.":[
+              "continue",
+              0,
+              0
+            ] 
+          }
+        ]
+      },
+      {
+        "Use the money for personal needs.":[
+          {
+            "You buy yourself a delicious pastry.":[
+              "continue",
+              10,
+              20
+            ]
+          },
+          {
+            "You buy yourself a delicious pastry but it falls on the ground.":[
+              "continue",
+              -20,
+              -5
+            ]
+          }
+        ]
+      },
+      {
+        "Give the change to a homeless person.":[
+          {
+            "They thank you and give blessings.":[
+              "continue",
+              0,
+              30
+            ]
+          },
+          {
+            "They pity you for giving such a less amount.":[
+              "continue",
+              0,
+              -5
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Your neighbour leaves their dog out in all kinds of weather. The poor animal frequently looks like it is miserable. What will you do?":[
+      {
+        "Report to animal care authorities in your residences.":[
+          {
+            "The neighbour found out that you reported him. They started spreading rumours about you.":[
+              "continue",
+              0,
+              -20
+            ]
+          },
+          {
+            "The authorities grant you a monetary reward.":[
+              "continue",
+              10,
+              10
+            ] 
+          }
+        ]
+      },
+      {
+        "Fight your neighbour.":[
+          {
+            "They turned out to be a ninja and they beat you to death.":[
+              "end"
+            ]
+          },
+          {
+            "You broke their teeth and won the fight.":[
+              "continue",
+              10,
+              20
+            ]
+          }
+        ]
+      },
+      {
+        "Say nothing.":[
+          {
+            "The pet keeps facing cruelty.":[
+              "continue",
+              0,
+              -5
+            ]
+          },
+          {
+            "The authorities condemn your dishonesty.":[
+              "continue",
+              0,
+              -10
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "A friend gives you a gift for your birthday. Unfortunately, it is a type of perfume you are extremely allergic to. What will you do?":[
+      {
+        "Throw away the present without letting the friend know.":[
+          {
+            "The friend thinks you really liked the gift.":[
+              "continue",
+              10,
+              10
+            ]
+          },
+          {
+            "You friend finds out got rid of it.":[
+              "continue",
+              0,
+              -15
+            ]
+          }
+        ]
+      },
+      {
+        "Tell the truth and ask for receipt so that you can return it.":[
+          {
+            "The friend feels bad and can't find the receipt.":[
+              "continue",
+              0,
+              -10
+            ]
+          },
+          {
+            "You get yourself a nice deodorant in return.":[
+              "continue",
+              10,
+              30
+            ]
+          }
+        ]
+      },
+      {
+        "Say and do nothing about it.":[
+          {
+            "The perfume bottle falls and breaks causing rashes on your skin.":[
+              "continue",
+              -10,
+              -30
+            ]
+          },
+          {
+            "You friend finds out that you don't use it.":[
+              "continue",
+              0,
+              -20
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Your ex-girlfriend is dying from a rare disease and the treatment is both risky and expensive. What will you do?":[
+      {
+        "Given in all of your money to save their life.":[
+          {
+            "They die due to organ failure during surgery.":[
+              "continue",
+              -40,
+              -15
+            ]
+          },
+          {
+            "They live. Flattered by all that you have done for them, they ask you out.":[
+              "continue",
+              -10,
+              20
+            ]
+          }
+        ]
+      },
+      {
+        "Leave them on their own because you're not together anymore.":[
+          {
+            "They die and you feel guilty about it.":[
+              "continue",
+              0,
+              -30
+            ]
+          },
+          {
+            "You don't know if they're dead or alive right now.":[
+              "continue",
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "Setup a fundraiser for them.":[
+          {
+            "Not a lot of people contributed so you had to chip in personal cash.":[
+              "continue",
+              -5,
+              10
+            ]
+          },
+          {
+            "A lot of people contribute and you are able to save their life.":[
+              "continue",
+              20,
+              40
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "You witness a man rob a bank, but instead of keeping the money for himself, he donates it to a local orphanage. What will you do?":[
+      {
+        "Go to the police and tell them what you know.":[
+          {
+            "The government gives you a monetary reward for your honesty.":[
+              "continue",
+              15,
+              10
+            ]
+          },
+          {
+            "The robber killed you while you were on your way to the police station.":[
+              "end"
+            ]
+          }
+        ]
+      },
+      {
+        "Say nothing because it was for a good cause.":[
+          {
+            "The police finds out about it and arrests both of you.":[
+              "continue",
+              0,
+              -30
+            ]
+          },
+          {
+            "Nobody finds out and you feel happy about what you did.":[
+              "continue",
+              0,
+              10
+            ]
+          }
+        ]
+      },
+      {
+        "Help arrest the robber and donate personal money to the same charity.":[
+          {
+            "People from the charity despise your action":[
+              "continue",
+              0,
+              -20
+            ]
+          },
+          {
+            "Turns out, the people from charity didn't want dirty money and were glad you reported the robber.":[
+              "continue",
+              20,
+              40
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Some people are chasing you on the street. What will be your next move?":[
+      {
+        "Try to blend into the crowd.":[
+          {
+            "They find you and beat you into a pulp.":[
+              "continue",
+              -10,
+              -15
+            ]
+          },
+          {
+            "They try searching for you in the crowd and give up after a while.":[
+              "continue",
+              0,
+              5
+            ]
+          }
+        ]
+      },
+      {
+        "Run away as fast as possible.":[
+          {
+            "You trip badly over a rock that lands you in a coma.":[
+              "continue",
+              0,
+              -15
+            ]
+          },
+          {
+            "They find you and beat you into a pulp.":[
+              "continue",
+              -10,
+              -15
+            ]
+          }
+        ]
+      },
+      {
+        "Call the police and quietly make your way into an abandoned building.":[
+          {
+            "The police arrive at your location and escort you back home safely.":[
+              "continue",
+              0,
+              5
+            ]
+          },
+          {
+            "The abandoned building has an eery feeling. Before you know it, someone grabs your face from behind.":[
+              "end"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "It's Friday and you feel like spending, so you go to a nearby casino. You're at the roulette table, what do you choose?":[
+      {
+        "Red":[
+          {
+            "You almost lose all your life savings.":[
+              "continue",
+              -20,
+              -10
+            ]
+          },
+          {
+            "You win enough to buy a new house.":[
+              "continue",
+              20,
+              20
+            ]
+          },
+          {
+            "You lose a bit of your money.":[
+              "continue",
+              -10,
+              -5
+            ]
+          }
+        ]
+      },
+      {
+        "Black":[
+          {
+            "You almost lose all your life savings.":[
+              "continue",
+              -20,
+              -10
+            ]
+          },
+          {
+            "You win enough money to buy a new Porsche.":[
+              "continue",
+              20,
+              20
+            ]
+          },
+          {
+            "You lose a bit of your money.":[
+              "continue",
+              -10,
+              -5
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "You find a lot of money deposited in your bank account suddenly. Should you notify someone?":[
+      {
+        "You tell your branch manager.":[
+          {
+            "The manager quickly rectifies the error and gives you a free trip for your honesty.":[
+              "continue",
+              0,
+              10
+            ]
+          },
+          {
+            "The bank removes the money from your account.":[
+              "continue",
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "You tell no one about it.":[
+          {
+            "No one finds out and you get to keep the money.":[
+              "continue",
+              20,
+              10
+            ]
+          },
+          {
+            "The bank finds out and takes the money back.":[
+              "continue",
+              0,
+              -5
+            ]
+          }
+        ]
+      },
+      {
+        "You try to keep it quiet but tell your closest friends.":[
+          {
+            "No one finds out and all of you spend the money on a lavish trip.":[
+              "continue",
+              20,
+              10
+            ]
+          },
+          {
+            "One of your friends turns out to be part of the mafia and makes you hand over the money forcefully.":[
+              "continue",
+              -10,
+              -10
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Would you like to go on a cruise? It's the best way to travel around the globe!":[
+      {
+        "I love being on a boat!":[
+          {
+            "You have an amazing trip around the world.":[
+              "continue",
+              -10,
+              25
+            ]
+          },
+          {
+            "On a particularly stormy night, you get swept aboard and drown.":[
+              "end"
+            ]
+          }
+        ]
+      },
+      {
+        "I would rather stay home.":[
+          {
+            "You don't go on the trip and waste your time doing nothing.":[
+              "continue",
+              0,
+              -10
+            ]
+          },
+          {
+            "You pick up a new bicycling hobby, you feel great.":[
+              "continue",
+              0,
+              15
+            ]
+          }
+        ]
+      },
+      {
+        "You decide to explore the mountains instead.":[
+          {
+            "You get stranded on the summit for days due to a blizzard but you eventually get rescued.":[
+              "continue",
+              -10,
+              -20
+            ]
+          },
+          {
+            "You meet a friendly mountaineer who guides you up and down the mountain safely and you relish the new experience.":[
+              "continue",
+              0,
+              25
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
