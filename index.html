@@ -6,11 +6,39 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/homepage.css">
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet">
     <script scr="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
     
 </head>
 <body>
     <script type="module" src="js/main.js"></script>
-    <div id="world"></div>
+    <div id="world">
+        <div id="homepage">
+            <div class="floating">
+                <p class="vcenter">The Road<br />Not Taken</p>
+                <div class="nes-container is-rounded is-centered">
+                  <p class="title typewriter">Press SPACE or click START to get started</p><br />
+                  <button id="gameStart" type="Button" class="nes-btn is-warning">START</button>
+                </div>
+              </div>
+        </div>
+        <div id="canvas">
+            <div id="game-elements" style="position:absolute; width:100%">
+                <div id="progress-bars" class="top-progress-bar">
+                    <div class="nes-container with-title">
+                        <span class="title">Player Vitals</span> 
+                        <progress class="nes-progress col-sm-8 col-xs-12" value="80" max="100"></progress>
+                   </div>
+                </div>
+                
+               <div id="navigation-buttons">
+                    <button id="nav-left" type="button" class="nes-btn is-primary" style="float:left; margin-left:50px; margin-top:30%">Left</button>
+                    <button id="nav-right" type="button" class="nes-btn is-primary" style="float:right; margin-right:50px; margin-top:30%">Right</button>
+               </div>
+            </div>     
+        </div>
+    </div>
 </body>
 </html>

@@ -1,0 +1,110 @@
+#homepage{
+    height: 100%;
+    width: 100%;
+    display: block;
+    position:absolute;
+}
+
+.floating {
+    animation-name: floating;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    margin: 1em 1em auto 1em;
+  }
+  
+  @keyframes floating {
+    from {
+      transform: translate(0, 0px);
+    }
+  
+    65% {
+      transform: translate(0, 15px);
+    }
+  
+    to {
+      transform: translate(0, -0px);
+    }
+  }
+  
+  html,
+  body,
+  pre,
+  code,
+  kbd,
+  samp {
+    font-family: "Press Start 2P";
+  }
+  
+  .vcenter {
+    height: 50vh;
+    font-size: 3em;
+    text-align: center;
+    width: 50%;
+    margin: 1em auto 1em auto;
+  }
+  
+  .typewriter {
+    overflow: hidden;
+    /* Ensures the content is not revealed until the animation */
+    width: 42em;
+    border-right: 0.2em solid black;
+    /* The typewriter cursor */
+    white-space: nowrap;
+    /* Keeps the content on a single line */
+    margin: 0 auto;
+    /* Gives that scrolling effect as the typing happens */
+    animation:
+  
+      typing 4s steps(60, end),
+      blink-caret 0.75s step-end infinite;
+  }
+  
+  /* The typing effect */
+  @keyframes typing {
+    from {
+      width: 0%;
+    }
+  
+    to {
+      width: 42em;
+    }
+  }
+  
+  /* The typewriter cursor effect */
+  @keyframes blink-caret {
+  
+    from,
+    to {
+      border-color: transparent;
+    }
+  
+    50% {
+      border-color: black;
+    }
+  }
+  
+
+h1{
+    top: 50%;
+    left: 50%;
+    position: fixed;
+    height: 200px;
+    width: 700px;
+    text-align: center;
+    font-size: 50px;
+    margin-top: -100px;
+    margin-left: -350px;
+}
+
+h3{
+    width: 500px;
+    margin: 0;
+    bottom: 0;
+    position: fixed;
+    margin-bottom: 20px;
+    padding: 0px;
+    left:  calc(50% - 250px) ;
+    text-align: center;
+    font-size: 20px
+}
