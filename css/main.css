@@ -8,9 +8,15 @@ canvas{
 }
 
 #world{
-    background: linear-gradient(#8ee4ae, #e9eba3);
+    background: linear-gradient(#745669,#d0605e, #fba55a, #853c1c, #060405);
     position:absolute;
     width:100%;
     height:100%;
     overflow:hidden;
+}
+
+.top-progress-bar{
+    width: 80%;
+    margin-top: 40px;
+    margin-left: 10%;
 }
