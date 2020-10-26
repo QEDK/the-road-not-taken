@@ -1,10 +1,8 @@
 ![The Road Not Taken](https://i.imgur.com/EvEsjr9.png)
 
-> Two roads diverged in a wood, and I—
-
-> I took the one less traveled by,
-
-> And that has made all the difference.
+> Two roads diverged in a wood, and I— <br>
+I took the one less traveled by, <br>
+And that has made all the difference.
 
 Inspired by Robert Frost's masterpiece, here's **The Road Not Taken**, a situational dilemma simulator. 🎲 🔮 
 
