@@ -74,3 +74,7 @@ available at https://www.contributor-covenant.org/version/1/4/code-of-conduct.ht
 
 For answers to common questions about this code of conduct, see
 https://www.contributor-covenant.org/faq
+
+## Notes
+
+In addition to this, the [MLH Code of Conduct](https://static.mlh.io/docs/mlh-code-of-conduct.pdf) also applies.
