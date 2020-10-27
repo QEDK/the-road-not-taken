@@ -96,15 +96,3 @@ h1{
     margin-top: -100px;
     margin-left: -350px;
 }
-
-h3{
-    width: 500px;
-    margin: 0;
-    bottom: 0;
-    position: fixed;
-    margin-bottom: 20px;
-    padding: 0px;
-    left:  calc(50% - 250px) ;
-    text-align: center;
-    font-size: 20px
-}

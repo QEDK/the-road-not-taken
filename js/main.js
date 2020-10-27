@@ -31,6 +31,25 @@ var lastPos;
 var cameraTarget;
 var stopPoint;
 
+var choices;
+var choicesDone = [];
+var playerWealth = 50;
+var playerHealth = 50;
+var playerWealthBar, playerHealthBar;
+var intersectionElementBeforeChoice;
+var htmlLeftChoiceTitle, htmlRightChoiceTitle, htmlQuestionTitle;
+var currentQuestion, cqTitle, cqLeftChoice, cqRightChoice, cqLeftTitle, cqRightTitle, cqLeftResponse, cqRightResponse, cqLeftMoneyChange, cqRightMoneyChange, cqLeftHealthChange, cqRightHealthChange, cqLeftIsAlive, cqRightIsAlive;
+
+
+fetch("../src/choices.json")
+.then(response => {
+   return response.json();
+})
+.then(data => {
+    console.log("json data");
+    choices = data;
+});
+
 
 
 var anglePath = [];
@@ -79,17 +98,28 @@ function init(){
     window.addEventListener('resize', ()=>{
         renderer.setSize(window.innerWidth, window.innerHeight);
         camera.aspect = window.innerWidth/ window.innerHeight;
-        camera.updateProjectionMatrix();
+        camera.updateProjectionMatrix()
     });
 
     startButton = document.getElementById('gameStart');
     gameElements = document.getElementById('game-elements');
-    navButtons = document.getElementById('navigation-buttons');
     navButLeft = document.getElementById('nav-left');
     navButRight = document.getElementById('nav-right');
+    
+    htmlLeftChoiceTitle = document.getElementById('left-choice-title');
+    htmlRightChoiceTitle = document.getElementById('right-choice-title');
+    htmlQuestionTitle = document.getElementById('question-title');
 
+    playerHealthBar = document.getElementById('healthbar');
+    playerWealthBar = document.getElementById('wealthbar');
+    playerHealthBar.value = playerHealth;
+    playerWealthBar.value = playerWealth;
+
+    intersectionElementBeforeChoice = document.getElementById('intersection-elements-before-choice');
+
+    intersectionElementBeforeChoice.style.display = "none";
     gameElements.style.display = "none";
-    navButtons.style.display = "none";
+
 
     init_keypress();
     init_loader();
@@ -110,24 +140,44 @@ function init_keypress(){
     });
 
     navButLeft.addEventListener('click', ()=>{
+        console.log("left click");
         if(turnEnabled) {
-			console.log("left");
+            console.log("left");
+            
+            playerHealth += cqLeftHealthChange;
+            playerWealth += cqLeftMoneyChange;
+
+            playerHealthBar.value = playerHealth;
+            playerWealthBar.value = playerWealth;
+
+            console.log("RESPONSE => "+cqLeftResponse);
+
 			walkAngle += Math.PI/3; 
 			playerObject.rotation.y += Math.PI/3;
 			lastPos = anglePath[angleCurrentlyUsed].leftPath[2].position;
             addAnglePath(true);
-            navButtons.style.display = "none";
+            intersectionElementBeforeChoice.style.display = "none";
         }
     });
 
     navButRight.addEventListener('click', ()=>{
+        console.log("right click");
         if(turnEnabled) {
-			console.log("right");
+            console.log("right");
+            
+            playerHealth += cqRightHealthChange;
+            playerWealth += cqRightMoneyChange;
+
+            playerHealthBar.value = playerHealth;
+            playerWealthBar.value = playerWealth;
+
+            console.log("RESPONSE => "+cqRightResponse);
+
 			walkAngle -= Math.PI/3; 
 			playerObject.rotation.y -= Math.PI/3;
 			lastPos = anglePath[angleCurrentlyUsed].rightPath[2].position;
             addAnglePath(true);
-            navButtons.style.display = "none";
+            intersectionElementBeforeChoice.style.display = "none";
         }
     });
 
@@ -156,7 +206,7 @@ function init_keypress(){
 			playerObject.rotation.y -= Math.PI/3;
 			lastPos = anglePath[angleCurrentlyUsed].rightPath[2].position;
             addAnglePath(true);
-            navButtons.style.display = "none";
+            intersectionElementBeforeChoice.style.display = "none";
 		}
 		if(event.key == 'l' && turnEnabled) {
 			console.log("left");
@@ -164,7 +214,7 @@ function init_keypress(){
 			playerObject.rotation.y += Math.PI/3;
 			lastPos = anglePath[angleCurrentlyUsed].leftPath[2].position;
             addAnglePath(true);
-            navButtons.style.display = "none";
+            intersectionElementBeforeChoice.style.display = "none";
         }
 
         if(event.key == 'p') {
@@ -259,25 +309,25 @@ function init_loader(){
     ///////////////////
     // GRASS
 
-    var gtex = new THREE.TextureLoader().load("../3d_assets/Grass/grassTexture5.jpg");
-    var gmat = new THREE.MeshBasicMaterial({map: gtex, side: THREE.DoubleSide});
-    var ggeo = new THREE.PlaneGeometry(3 * walkscale, 3 * walkscale);
-    var span = 50;
-    for(var i = -span; i<=span; i++)
-    {
-        grasses.push([]);
-        for(var j = -span; j<=span; j++)
-        {
-            var tgo = new THREE.Mesh(ggeo, gmat);
-            tgo.position.x = i * walkscale;
-            tgo.position.z = j * walkscale;
-            tgo.rotation.x = Math.PI/2;
-            tgo.position.y = yoffset - 25;
-            grasses[i+span][j+span] = tgo;
-            scene.add(tgo);
-        }
+    // var gtex = new THREE.TextureLoader().load("../3d_assets/Grass/grassTexture5.jpg");
+    // var gmat = new THREE.MeshBasicMaterial({map: gtex, side: THREE.DoubleSide});
+    // var ggeo = new THREE.PlaneGeometry(3 * walkscale, 3 * walkscale);
+    // var span = 50;
+    // for(var i = -span; i<=span; i++)
+    // {
+    //     grasses.push([]);
+    //     for(var j = -span; j<=span; j++)
+    //     {
+    //         var tgo = new THREE.Mesh(ggeo, gmat);
+    //         tgo.position.x = i * walkscale;
+    //         tgo.position.z = j * walkscale;
+    //         tgo.rotation.x = Math.PI/2;
+    //         tgo.position.y = yoffset - 25;
+    //         grasses[i+span][j+span] = tgo;
+    //         scene.add(tgo);
+    //     }
             
-    } 
+    // } 
 
     // var grassLoader = new FBXLoader();
     // grassLoader.load('../3d_assets/Grass/grass_new3.fbx', function(object3d){
@@ -511,7 +561,56 @@ function animate(){
             playerObject.position.x = stopPoint.x;
             playerObject.position.y = stopPoint.y;
             playerObject.position.z = stopPoint.z;
-            navButtons.style.display = "block";
+            intersectionElementBeforeChoice.style.display = "block"; 
+            
+            if(choices.length == 0)
+            {
+                choices = choicesDone;
+                choicesDone = [];
+            }
+
+            var qno = Math.floor(Math.random()*100) % choices.length;            
+            currentQuestion = choices[qno];
+            choicesDone.push(currentQuestion);
+
+            array_remove_index_by_value(choices, qno);
+
+            cqTitle = Object.keys(currentQuestion);
+            var chs = currentQuestion[cqTitle];
+
+            var nl = Math.floor(Math.random()*100) % chs.length;
+            var nr = nl;
+            while(nl == nr)
+            {
+                nr = Math.floor(Math.random()*100) % chs.length;
+            }
+
+            cqLeftChoice = chs[nl];
+            cqRightChoice = chs[nr];
+
+            cqLeftTitle = Object.keys(cqLeftChoice)[0];
+            cqRightTitle = Object.keys(cqRightChoice)[0];
+            var allLeftRes = cqLeftChoice[cqLeftTitle];
+            var allRightRes = cqRightChoice[cqRightTitle];
+
+            var cqlr = allLeftRes[(Math.floor(Math.random()*100))%allLeftRes.length];
+            var cqrr = allRightRes[(Math.floor(Math.random()*100))%allRightRes.length];
+
+            cqLeftResponse = Object.keys(cqlr)[0];
+            cqLeftIsAlive = cqlr[cqLeftResponse][0];
+            cqLeftHealthChange = cqlr[cqLeftResponse][2];
+            cqLeftMoneyChange = cqlr[cqLeftResponse][1];
+
+            cqRightResponse = Object.keys(cqrr)[0];
+            cqRightIsAlive = cqrr[cqRightResponse][0];
+            cqRightHealthChange = cqrr[cqRightResponse][2];
+            cqRightMoneyChange = cqrr[cqRightResponse][1];
+
+            //ADD THE CALCULATED VALUES TO ELEMENTS
+            htmlQuestionTitle.innerHTML = cqTitle;
+            htmlLeftChoiceTitle.innerHTML = cqLeftTitle;
+            htmlRightChoiceTitle.innerHTML = cqRightTitle;
+
         }
     }
 
@@ -612,6 +711,13 @@ function addText(question, leftChoice, rightChoice, position)
     scene.add(mesh); //add text
 }
 
+function array_remove_index_by_value(arr, item)
+{
+    for (var i = arr.length; i--;)
+    {
+    if (arr[i] === item) {arr.splice(i, 1);}
+    }
+}
 
 
 init();

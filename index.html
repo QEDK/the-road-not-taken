@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>The Road Not Taken</title>
+    <title>Document</title>
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/homepage.css">
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
@@ -25,19 +25,43 @@
               </div>
         </div>
         <div id="canvas">
-            <div id="game-elements" style="position:absolute; width:100%">
-                <div id="progress-bars" class="top-progress-bar">
-                    <div class="nes-container with-title">
-                        <span class="title">Player Vitals</span> 
-                        <progress class="nes-progress col-sm-8 col-xs-12" value="80" max="100"></progress>
-                   </div>
+            <div id="game-elements" class = "absgameposition">
+                <div class="nes-container with-title customwidth top-progress-bar relgameposition">
+                    <span class="title">Vitals</span> 
+                   <i class="nes-icon coin is-small"></i>&nbsp;<progress id="wealthbar" class="nes-progress customheight" value="50" max="100"></progress>
+                      <br />
+                      <i class="nes-icon heart is-small"></i>&nbsp;<progress id="healthbar" class="nes-progress customheight" value="50" max="100"></progress>
                 </div>
-                
-               <div id="navigation-buttons">
-                    <button id="nav-left" type="button" class="nes-btn is-primary" style="float:left; margin-left:50px; margin-top:30%">Left</button>
-                    <button id="nav-right" type="button" class="nes-btn is-primary" style="float:right; margin-right:50px; margin-top:30%">Right</button>
-               </div>
-            </div>     
+            </div>
+            
+            <div id="intersection-elements-before-choice" class="absintersectionposition" >
+                <div class="nes-container is-rounded is-centered choices relintersectionposition" >
+                    <div class="nes-table-responsive">
+                        <table class="nes-table is-centered" style="background-color: transparent;">
+                            <tbody>
+                                <tr>
+                                    <h3 id="question-title">What's in the name?</h3>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50%;">
+                                        <div class="nes-container is-rounded is-centered leftchoice">
+                                            <p id="left-choice-title">Nothing</p>
+                                            <button id="nav-left"type="button" class="nes-btn is-primary">Left</button>
+                                        </div>
+                                    </td>
+                                    <td style="width: 50%;">
+                                        <div class="nes-container is-rounded is-centered rightchoice">
+                                            <p id="right-choice-title"></p>Everything</p>
+                                            <button id="nav-right" type="button" class="nes-btn is-primary">Right</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </body>
