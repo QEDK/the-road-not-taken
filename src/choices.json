@@ -1095,7 +1095,7 @@
   {
     "It's Friday and you feel like spending, so you go to a nearby casino. You're at the roulette table, what do you choose?":[
       {
-        "Red":[
+        "You decide to go with red.":[
           {
             "You almost lose all your life savings.":[
               "continue",
@@ -1120,7 +1120,7 @@
         ]
       },
       {
-        "Black":[
+        "You decide to go with black.":[
           {
             "You almost lose all your life savings.":[
               "continue",
