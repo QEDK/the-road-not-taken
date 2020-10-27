@@ -16,7 +16,54 @@ canvas{
 }
 
 .top-progress-bar{
-    width: 80%;
-    margin-top: 40px;
-    margin-left: 10%;
+    margin-top: 3%;
+    margin-left: 3%;
+}
+
+.customwidth {  
+    width: 40%;
+}
+    
+.customheight {
+    width: 90% !important;
+    height: 1.2em !important;
+}
+
+.choices {
+    width: 60%;
+    margin: 40vh auto !important;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+  
+.leftchoice {
+    margin: auto 2em !important;
+}
+  
+.rightchoice {
+    margin: auto auto auto 2em !important;
+}
+
+.absgameposition{
+    position: absolute; 
+    top: -2%;
+    left: -1%;
+    width: 120%
+}
+
+.relgameposition{
+    position: relative;
+    /* left: -50%; */
+}
+
+.absintersectionposition{
+    position: absolute; 
+    left: 50%;
+    width: 120%;
+}
+
+.relintersectionposition{
+    position: relative;
+    left: -50%;
 }
