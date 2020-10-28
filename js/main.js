@@ -56,18 +56,13 @@ fetch("../src/choices.json")
    return response.json();
 })
 .then(data => {
-    console.log("json data");
     choices = data;
 });
-
-
 
 var anglePath = [];
 var angleCurrentlyUsed = -1;
 
 var leaves = [];
-var grasses = [];
-var roads = [];
 
 function init(){
     scene = new THREE.Scene();
@@ -108,7 +103,6 @@ function init(){
         'py.jpg', 'ny.jpg',
         'pz.jpg', 'nz.jpg',
     ], ()=>{
-        console.log("BG loaded");
         isBgLoaded = true;
         scene.background = cubeTexture;
     } );
@@ -121,7 +115,7 @@ function init(){
     window.addEventListener('resize', ()=>{
         renderer.setSize(window.innerWidth, window.innerHeight);
         camera.aspect = window.innerWidth/ window.innerHeight;
-        camera.updateProjectionMatrix()
+        camera.updateProjectionMatrix();
     });
 
     loadingScreen = document.getElementById('loading-screen');
@@ -188,10 +182,7 @@ function init_keypress(){
     });
 
     navButLeft.addEventListener('click', ()=>{
-        console.log("left click");
-        if(turnEnabled) {
-            console.log("left");
-            
+        if(turnEnabled) {            
             playerHealth += cqLeftHealthChange;
             playerWealth += cqLeftMoneyChange;
 
@@ -202,8 +193,6 @@ function init_keypress(){
 
             playerHealthBar.value = playerHealth;
             playerWealthBar.value = playerWealth;
-
-            console.log("RESPONSE => "+cqLeftResponse);
 
             htmlResultTitle.innerHTML = cqLeftResponse;
 
@@ -249,10 +238,7 @@ function init_keypress(){
     });
 
     navButRight.addEventListener('click', ()=>{
-        console.log("right click");
-        if(turnEnabled) {
-            console.log("right");
-            
+        if(turnEnabled) {            
             playerHealth += cqRightHealthChange;
             playerWealth += cqRightMoneyChange;
 
@@ -263,8 +249,6 @@ function init_keypress(){
 
             playerHealthBar.value = playerHealth;
             playerWealthBar.value = playerWealth;
-
-            console.log("RESPONSE => "+cqRightResponse);
 
             htmlResultTitle.innerHTML = cqRightResponse;
 
@@ -314,7 +298,6 @@ function init_keypress(){
     });
 
     document.addEventListener('click', ()=>{
-        console.log("clicked!!");
         if(isResultBeingDisplayed)
         {
             isResultBeingDisplayed = false;
@@ -335,7 +318,6 @@ function init_keypress(){
 
     document.addEventListener('keypress', function(event) {
         if(event.key == ' ') {
-
             if(!zoomStart)
             {
                 homepage.style.display = "none";
@@ -343,25 +325,119 @@ function init_keypress(){
                 zoomStart = true;
                 lookAtUser = true;
                 addAnglePath(false);
-                gameElements.style.display = "block";   
+                gameElements.style.display = "block"; 
+                var props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY, loop: -1, volume: 0.5})
+                createjs.Sound.play("track", props);  
             }
-
         }
         if(event.key == 'r' && turnEnabled) {
-			console.log("right");
-			walkAngle -= Math.PI/3; 
-			playerObject.rotation.y -= Math.PI/3;
-			lastPos = anglePath[angleCurrentlyUsed].rightPath[2].position;
-            addAnglePath(true);
-            intersectionElementBeforeChoice.style.display = "none";
+			if(turnEnabled) {            
+                playerHealth += cqRightHealthChange;
+                playerWealth += cqRightMoneyChange;
+    
+                playerHealth = Math.min(playerHealth, 100);
+                playerWealth = Math.min(playerWealth, 100);
+                playerHealth = Math.max(playerHealth, 0);
+                playerWealth = Math.max(playerWealth, 0);
+    
+                playerHealthBar.value = playerHealth;
+                playerWealthBar.value = playerWealth;
+    
+                htmlResultTitle.innerHTML = cqRightResponse;
+    
+                if(cqRightHealthChange < 0)
+                htmlHealthResultIcon.innerHTML = "🔽";
+                else if(cqRightHealthChange == 0)
+                htmlHealthResultIcon.innerHTML = "🔁";
+                else
+                htmlHealthResultIcon.innerHTML = "🔼";
+    
+                if(cqRightMoneyChange < 0)
+                htmlWealthResultIcon.innerHTML = "🔽";
+                else if(cqRightMoneyChange == 0)
+                htmlWealthResultIcon.innerHTML = "🔁";
+                else
+                htmlWealthResultIcon.innerHTML = "🔼";
+    
+                walkAngle -= Math.PI/3; 
+                playerObject.rotation.y -= Math.PI/3;
+                lastPos = anglePath[angleCurrentlyUsed].rightPath[2].position;
+                intersectionElementBeforeChoice.classList.remove('fade-in');
+                intersectionElementBeforeChoice.classList.add('fade-out');
+                intersectionElementBeforeChoice.style.display = "block";
+                
+                setTimeout(function(){ 
+                    intersectionElementBeforeChoice.style.display = "none";
+                    intersectionElementResult.classList.remove('fade-out');
+                    intersectionElementResult.classList.add('fade-in');
+                    if(!((playerHealth <= 0) || (playerWealth <=0)))
+                    {
+                        intersectionElementResult.style.display = "block";
+                        isResultBeingDisplayed = true;
+                    }
+                    else
+                    {
+                        htmlDeathTitle.innerHTML = cqLeftResponse;
+                        htmlGameOverScreen.classList.add('fade-in');
+                        htmlGameOverScreen.style.display = "block";
+                    }
+                   
+                }, 800);
+            }
 		}
 		if(event.key == 'l' && turnEnabled) {
-			console.log("left");
-			walkAngle += Math.PI/3; 
-			playerObject.rotation.y += Math.PI/3;
-			lastPos = anglePath[angleCurrentlyUsed].leftPath[2].position;
-            addAnglePath(true);
-            intersectionElementBeforeChoice.style.display = "none";
+			if(turnEnabled) {            
+                playerHealth += cqLeftHealthChange;
+                playerWealth += cqLeftMoneyChange;
+    
+                playerHealth = Math.min(playerHealth, 100);
+                playerWealth = Math.min(playerWealth, 100);
+                playerHealth = Math.max(playerHealth, 0);
+                playerWealth = Math.max(playerWealth, 0);
+    
+                playerHealthBar.value = playerHealth;
+                playerWealthBar.value = playerWealth;
+    
+                htmlResultTitle.innerHTML = cqLeftResponse;
+    
+                if(cqLeftHealthChange < 0)
+                htmlHealthResultIcon.innerHTML = "🔽";
+                else if(cqLeftHealthChange == 0)
+                htmlHealthResultIcon.innerHTML = "🔁";
+                else
+                htmlHealthResultIcon.innerHTML = "🔼";
+    
+                if(cqLeftMoneyChange < 0)
+                htmlWealthResultIcon.innerHTML = "🔽";
+                else if(cqLeftMoneyChange == 0)
+                htmlWealthResultIcon.innerHTML = "🔁";
+                else
+                htmlWealthResultIcon.innerHTML = "🔼";
+        
+    
+                walkAngle += Math.PI/3; 
+                playerObject.rotation.y += Math.PI/3;
+                lastPos = anglePath[angleCurrentlyUsed].leftPath[2].position;
+                intersectionElementBeforeChoice.classList.remove('fade-in');
+                intersectionElementBeforeChoice.classList.add('fade-out');
+                
+                setTimeout(function(){ 
+                    intersectionElementBeforeChoice.style.display = "none";
+                    intersectionElementResult.classList.remove('fade-out');
+                    intersectionElementResult.classList.add('fade-in');
+                    if(!((playerHealth <= 0) || (playerWealth <=0)))
+                    {
+                        intersectionElementResult.style.display = "block";
+                        isResultBeingDisplayed = true;
+                    }
+                    else
+                    {
+                        htmlDeathTitle.innerHTML = cqLeftResponse;
+                        htmlGameOverScreen.classList.add('fade-in');
+                        htmlGameOverScreen.style.display = "block";
+                    }
+                }, 800);
+            }
         }
 
         if(event.key == 'p') {
@@ -376,19 +452,11 @@ function init_keypress(){
     });
 }
 
-function pause(milliseconds) {
-	var dt = new Date();
-	while ((new Date()) - dt <= milliseconds) { /* Do nothing */ }
-}
-
 function init_loader(){
 
     var leafTexture = new THREE.TextureLoader().load("../3d_assets/Leaf/leaf_texture.jpg");
     var lt1= new THREE.TextureLoader().load("../3d_assets/Leaf/leaf_t1_ed.png");
     var lt2 = new THREE.TextureLoader().load("../3d_assets/Leaf/leaf_t2_ed.png");
-    // leafTexture.wrapS = THREE.RepeatWrapping;
-    // leafTexture.wrapT = THREE.RepeatWrapping;
-    // leafTexture.repeat.set( 4, 4 );
     var leafMaterial = new THREE.MeshBasicMaterial({map: leafTexture, side: THREE.DoubleSide});
     var lm1 = new THREE.MeshBasicMaterial({map: lt1, side: THREE.DoubleSide});
     var lm2 = new THREE.MeshBasicMaterial({map: lt2, side: THREE.DoubleSide});
@@ -396,9 +464,6 @@ function init_loader(){
 
     var leafLoader = new FBXLoader();
     leafLoader.load('../3d_assets/Leaf/leaf.fbx', (leaf3d)=>{
-        console.log("leaf below");
-        console.log(leaf3d);
-        console.log(leaf3d.children[0].geometry);
         for(var i = 0; i<1000; i++)
         {        
             var leaf = leaf3d;
@@ -466,7 +531,6 @@ function init_loader(){
 
     var treeLoader = new FBXLoader();
     treeLoader.load('../3d_assets/Tree/3DPaz_fir-tree_01.FBX', (object3d)=>{
-        console.log(object3d);
         var treeObject = object3d;
         var treeGeo = treeObject.children[0].geometry;
         var treeMat = treeObject.children[0].material;
@@ -584,23 +648,6 @@ function init_loader(){
 
 
     });
-
-	
-    
-
-	
-
-	
-
-    var fontlink = 'https://unpkg.com/three@0.121.1//examples/fonts/helvetiker_regular.typeface.json';
-
-   
-    
-    // var textLoader = new THREE.FontLoader();
-    // textLoader.load(fontlink, (font)=>{
-    //     textFont = font;
-    // });
-
 }
 
 function addAnglePath(situation)
@@ -639,22 +686,11 @@ function addAnglePath(situation)
     stopPoint.x = lastPos.x + walkscale * 2.36602 * Math.sin(walkAngle);
     stopPoint.z = lastPos.z + walkscale * 2.36602 * Math.cos(walkAngle);
     stopPoint.y = yoffset;
-    // console.log(stopPoint.x+" -- "+stopPoint.y+" -- "+stopPoint.z+" - STOP POINT -- ");
-
-
-	// var geometry = new THREE.SphereGeometry( 5,32,32 );
-	// var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
-	// var sphere = new THREE.Mesh( geometry, material );
-	// sphere.position.x = anglePath[an].tri.position.x;
-	// sphere.position.y = anglePath[an].tri.position.y;
-	// sphere.position.z = anglePath[an].tri.position.z;
-    // scene.add( sphere );
     
 
 	var midX = (TriX + lastPos.x) /2;
 	var midZ = (TriZ + lastPos.z) /2;
-	console.log(TriX+" -- "+TriZ+" -- "+lastPos.x+" -- "+lastPos.z+" -- "+midX+ " -- "+midZ);
-
+	
 	var erx = Math.cos(walkAngle-Math.PI/3) * (walkscale*1.5) - Math.sin(walkAngle-Math.PI/3) * (walkscale * 1.5) + lastPos.x + walkscale;
 	var erz = Math.sin(walkAngle-Math.PI/3) * (walkscale*1.5) + Math.cos(walkAngle-Math.PI/3) * (walkscale * 1.5) + lastPos.z +  1.5 * walkscale;
 
@@ -662,19 +698,15 @@ function addAnglePath(situation)
 	var elz = Math.sin(walkAngle+Math.PI/3) * (walkscale*1.5) + Math.cos(walkAngle+Math.PI/3) * (walkscale * 1.5) + lastPos.z + 1.5 * walkscale;
 
 
-
 	var RPX = Math.cos(-Math.PI/2) * (TriX - midX) - Math.sin(-Math.PI/2) * (TriZ - midZ) + midX;
 	var RPZ = Math.sin(-Math.PI/2) * (TriX - midX) + Math.cos(-Math.PI/2) * (TriZ - midZ) + midZ;
 	var LPX = Math.cos(Math.PI/2) * (TriX - midX) - Math.sin(Math.PI/2) * (TriZ - midZ) + midX;
 	var LPZ = Math.sin(Math.PI/2) * (TriX - midX) + Math.cos(Math.PI/2) * (TriZ - midZ) + midZ;
 
-
 	var RX = Math.cos(-Math.PI/3) * (TriX - RPX) - Math.sin(-Math.PI/3) * (TriZ - RPZ) + RPX;
 	var RZ = Math.sin(-Math.PI/3) * (TriX - RPX) + Math.cos(-Math.PI/3) * (TriZ - RPZ) + RPZ;
 	var LX = Math.cos(Math.PI/3) * (TriX - LPX) - Math.sin(Math.PI/3) * (TriZ - LPZ) + LPX;
 	var LZ = Math.sin(Math.PI/3) * (TriX - LPX) + Math.cos(Math.PI/3) * (TriZ - LPZ) + LPZ;
-
-
 
 	var la = walkAngle + Math.PI/3;
 	var ra = walkAngle - Math.PI/3;
@@ -722,8 +754,7 @@ function addAnglePath(situation)
 	textpos.x = lastPos.x + walkscale * 9 * Math.sin(walkAngle);
 	textpos.z = lastPos.z + walkscale * 9 * Math.cos(walkAngle);
 	textpos.y = 0;
-    // addText("Question", "Choice 1", "Choice 2", textpos);
-    
+
     walk = situation;
     turnEnabled = false;
 }
@@ -737,7 +768,6 @@ function animate(){
         }, 1500);
         isLoadingScreenVisible = false;
         world.style.display = 'block';
-        console.log("done!!!");
     }
     
     if(zoomIteration < 100 && zoomStart)
@@ -747,20 +777,12 @@ function animate(){
         camera.position.z += 6;
         zoomIteration++;
 
-        if(zoomIteration%50==0)
-        {
-            console.log(zoomIteration);
-            console.log(camera.position);
-            
-        }
-
         if(cameraPoint.x>playerObject.position.x)
         {
             cameraPoint.x -= 13; 
         }
         else
         {
-            console.log("here");
             var pos = playerObject.position;
             camera.lookAt (pos.x, pos.y+100, pos.z);
         }
@@ -773,7 +795,6 @@ function animate(){
     {
         if( (Math.abs(stopPoint.x - playerObject.position.x)<=13.0) && (Math.abs(stopPoint.z - playerObject.position.z)<=13.0) )
         {
-            console.log("STOP!!!!");
             turnEnabled = true;
             walk = false;
             playerObject.position.x = stopPoint.x;
@@ -923,33 +944,5 @@ function fade(element) {
         op -= op * 0.5;
     }, 50);
 }
-
-function addText(question, leftChoice, rightChoice, position)
-{
-	console.log("here");
-    var text = `${question}\nLeft Path [L] : ${leftChoice}\nRight Path [R] : ${rightChoice}`;
-    var geo = new THREE.TextGeometry(
-        text,
-        {
-            font: textFont,
-            size: 30,
-            curveSegments: 12,
-			bevelThickness: 2,
-			bevelSize: 5,
-			bevelEnabled: true
-        }
-    );
-    geo.computeBoundingBox();
-    geo.computeVertexNormals();
-    let centreOffset = 0.5 * ( geo.boundingBox.max.x - geo.boundingBox.min.x );
-    let textmat = new THREE.MeshBasicMaterial({color:0x3d3d3d, side: THREE.DoubleSide});
-    let mesh = new THREE.Mesh(geo, textmat);
-    mesh.position.x = position.x + centreOffset;
-    mesh.position.z = position.z;
-    mesh.rotation.y = Math.PI + walkAngle;
-    mesh.position.y = position.y + ( geo.boundingBox.max.y - geo.boundingBox.min.y );
-    scene.add(mesh); //add text
-}
-
 
 init();
