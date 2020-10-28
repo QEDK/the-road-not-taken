@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="css/homepage.css">
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
     <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet">
-    <!-- <script scr="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script> -->
-    <script src="https://code.createjs.com/1.0.0/soundjs.min.js"></script>
+    <script src="./src/soundjs.min.js"></script>
+    <link rel="shortcut icon" href="src/favicon.ico"/>
     
 </head>
 <body>
@@ -92,8 +92,35 @@
                   </div>
             </div>
 
+            <div id="game-over-screen" class="absintersectionposition">
+
+              <div class="nes-container is-rounded is-centered results relintersectionposition cardbackground">
+                <div class="nes-table-responsive">
+                  <table class="nes-table is-centered" style="background-color: transparent;">
+                    <tbody>
+                      <tr>
+                        <td>
+                          <h1>Game Over</h1>
+                        </td>
+                      <tr>
+                        <td>
+                          <h4 id="death-title">A very long message from one CSS designer to another, I swear to god, this is the worst experience of my life. Please spare me from this 13th level of hell, Dante Aligheri.
+                          </h4>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <button type="button" class="nes-btn is-primary" id="replay-button">Replay</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
         </div>
-    </div>
+      </div>
     <img id="loading-screen" class="loading-screen" src="./3d_assets/Loading/load.gif"></div>
 </body>
 </html>
