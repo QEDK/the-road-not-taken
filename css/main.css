@@ -48,6 +48,10 @@ canvas{
     text-align: center;    
 }
 
+.bg {
+    background-image: url("https://i.imgur.com/fGUjC7I.png");
+}
+
 .cardbackground{
     background-image: url("https://i.imgur.com/fGUjC7I.png");
     border-image-source: url("https://i.imgur.com/8IBxpiZ.png") !important;

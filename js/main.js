@@ -41,6 +41,7 @@ var intersectionElementBeforeChoice;
 var intersectionElementResult;
 var htmlLeftChoiceTitle, htmlRightChoiceTitle, htmlQuestionTitle;
 var htmlResultTitle, htmlWealthResultIcon, htmlHealthResultIcon;
+var htmlGameOverScreen, htmlReplayButton, htmlDeathTitle;
 var currentQuestion, cqTitle, cqLeftChoice, cqRightChoice, cqLeftTitle, cqRightTitle, cqLeftResponse, cqRightResponse, cqLeftMoneyChange, cqRightMoneyChange, cqLeftHealthChange, cqRightHealthChange, cqLeftIsAlive, cqRightIsAlive;
 var isPlayerLoaded = false;
 var isLeafLoaded = false;
@@ -48,6 +49,7 @@ var isRoadLoaded = false;
 var isBgLoaded = false;
 var isLoadingScreenVisible = true;
 var isResultBeingDisplayed = false;
+var isTrackLoaded = false;
 
 fetch("../src/choices.json")
 .then(response => {
@@ -146,10 +148,21 @@ function init(){
     htmlWealthResultIcon = document.getElementById('wealth-result-icon');
     htmlHealthResultIcon = document.getElementById('health-result-icon');
 
+    htmlReplayButton = document.getElementById('replay-button');
+    htmlGameOverScreen = document.getElementById('game-over-screen');
+    htmlDeathTitle = document.getElementById('death-title');
+
     intersectionElementBeforeChoice.style.display = "none";
     gameElements.style.display = "none";
     intersectionElementResult.style.display = 'none';
+    htmlGameOverScreen.style.display = 'none';
 
+    createjs.Sound.alternateExtensions = ["mp3"];
+    createjs.Sound.registerSound({src:"../src/theroadnottaken-audio.mp3", id:"track"});
+    createjs.Sound.on("fileload", ()=>{
+        isTrackLoaded = true;
+    });
+    
 
     init_keypress();
     init_loader();
@@ -166,6 +179,8 @@ function init_keypress(){
             lookAtUser = true;
             addAnglePath(false);
             gameElements.style.display = "block";
+            var props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY, loop: -1, volume: 0.5})
+            createjs.Sound.play("track", props);
         }
     });
 
@@ -215,11 +230,18 @@ function init_keypress(){
                 intersectionElementBeforeChoice.style.display = "none";
                 intersectionElementResult.classList.remove('fade-out');
                 intersectionElementResult.classList.add('fade-in');
-                intersectionElementResult.style.display = "block";
-                isResultBeingDisplayed = true;
+                if(!((playerHealth <= 0) || (playerWealth <=0)))
+                {
+                    intersectionElementResult.style.display = "block";
+                    isResultBeingDisplayed = true;
+                }
+                else
+                {
+                    htmlDeathTitle.innerHTML = cqLeftResponse;
+                    htmlGameOverScreen.classList.add('fade-in');
+                    htmlGameOverScreen.style.display = "block";
+                }
             }, 800);
-            
-            
         }
     });
 
@@ -268,10 +290,24 @@ function init_keypress(){
                 intersectionElementBeforeChoice.style.display = "none";
                 intersectionElementResult.classList.remove('fade-out');
                 intersectionElementResult.classList.add('fade-in');
-                intersectionElementResult.style.display = "block";
-                isResultBeingDisplayed = true;
+                if(!((playerHealth <= 0) || (playerWealth <=0)))
+                {
+                    intersectionElementResult.style.display = "block";
+                    isResultBeingDisplayed = true;
+                }
+                else
+                {
+                    htmlDeathTitle.innerHTML = cqLeftResponse;
+                    htmlGameOverScreen.classList.add('fade-in');
+                    htmlGameOverScreen.style.display = "block";
+                }
+               
             }, 800);
         }
+    });
+
+    htmlReplayButton.addEventListener('click',()=>{
+        location.reload();
     });
 
     document.addEventListener('click', ()=>{
@@ -691,7 +727,7 @@ function addAnglePath(situation)
 
 function animate(){
 
-    if(isLoadingScreenVisible && isPlayerLoaded && isLeafLoaded && isRoadLoaded && isBgLoaded)
+    if(isLoadingScreenVisible && isPlayerLoaded && isLeafLoaded && isRoadLoaded && isBgLoaded && isTrackLoaded)
     {
         setTimeout(()=>{
             fade(loadingScreen)
