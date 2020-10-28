@@ -157,6 +157,9 @@ function init(){
         isTrackLoaded = true;
     });
     
+    intersectionElementBeforeChoice.style.display = "none";
+    gameElements.style.display = "none";
+    intersectionElementResult.style.display = 'none';
 
     init_keypress();
     init_loader();
@@ -285,10 +288,10 @@ function init_keypress(){
                     htmlGameOverScreen.classList.add('fade-in');
                     htmlGameOverScreen.style.display = "block";
                 }
-               
             }, 800);
         }
     });
+
 
     htmlReplayButton.addEventListener('click',()=>{
         location.reload();
@@ -521,9 +524,9 @@ function init_loader(){
     });
 
     var roadTexture = new THREE.TextureLoader().load("../3d_assets/Road/road_texture_2.jpg");
-	var roadTriTexture = new THREE.TextureLoader().load("../3d_assets/Road/road_tri_texture_4.png");
-	var roadMaterial = new THREE.MeshBasicMaterial({map: roadTexture, side: THREE.DoubleSide});
-	var roadTriMaterial = new THREE.MeshBasicMaterial({map: roadTriTexture, side: THREE.DoubleSide});
+	  var roadTriTexture = new THREE.TextureLoader().load("../3d_assets/Road/road_tri_texture_4.png");
+	  var roadMaterial = new THREE.MeshBasicMaterial({map: roadTexture, side: THREE.DoubleSide});
+	  var roadTriMaterial = new THREE.MeshBasicMaterial({map: roadTriTexture, side: THREE.DoubleSide});
     var roadGeo = new THREE.PlaneGeometry(3 * walkscale, 3 * walkscale);
 
     var treeLoader = new FBXLoader();
@@ -531,7 +534,7 @@ function init_loader(){
         var treeObject = object3d;
         var treeGeo = treeObject.children[0].geometry;
         var treeMat = treeObject.children[0].material;
-
+      
         ///Roads Now
         for(var j = 0; j<3; j++)
         {
