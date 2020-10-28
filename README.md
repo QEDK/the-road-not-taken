@@ -18,19 +18,55 @@ The real question always is, what will you do about it? 🤔
 
 So take a step back and immerse yourself in this journey - one we are sure you will enjoy. 🍂
 
+## 🕹️ Where can I play this?
+
+Our game is hosted with Netlify, here you go: [trnt.space](https://trnt.space). Good luck, traveler! 🎮
+
 ## 👷 Who are we?
 
 This game was built by [Ridham Bhat](https://github.com/ridhambhat), [Rachit Gupta](https://github.com/dotrachit), [Sakshi Rambhia](https://github.com/Sakshi16) and [Ankit Maity](https://github.com/QEDK).
 
 ## 💻 What did we make this with?
 
-This game is built with [three.js](https://threejs.org) along with pure HTML, CSS and vanilla JavaScript. Yeah, that's it. 💁✨
+This game is built with [three.js](https://threejs.org) and [sound.js](https://createjs.com/soundjs) along with pure HTML, CSS and vanilla JavaScript. Yeah, that's it. 💁✨
+
+We used the [NES.css](https://github.com/nostalgic-css/NES.css) and [RPGUI](https://github.com/RonenNess/RPGUI) CSS framework libraries and assets for the UI/UX. 👩‍💻
+
+## 🏗️ Build instructions
+### 🔧 Installation
+First, clone the repository and work in the local directory like:
+```bash
+$ git clone git@github.com:QEDK/the-road-not-taken.git
+$ cd the-road-not-taken
+```
+Then, continue to setting up a HTTP server to serve the files locally. ⏬
+
+#### ☋ Node
+Node.js has a simple HTTP server package. To install, just do:
+```bash
+$ npm install http-server -g
+```
+Then, from the local directory, run the following command:
+```bash
+$ http-server . -p 8000
+```
+
+#### 🐍 Python
+Python 3 has a simple HTTP server package in the standard library. You can run the server locally like:
+```bash
+$ python3 -m http.server
+```
+
+### 🖥️ Deployment
+After the server starts, all you need to do is navigate to http://localhost:8000 and the game should be up and running! :rocket:
+
+Please note that these servers should not be used in production, you should instead use production-grade servers like [gunicorn](https://gunicorn.org) or [nginx](https://www.nginx.com). You can find more advanced information in the three.js [documentation](https://threejs.org/docs/#manual/en/introduction/How-to-run-things-locally). 3️⃣
 
 ## 📜 License
 This project is released under a free and open-source software license, Apache License 2.0 or later ([LICENSE](LICENSE) or https://www.apache.org/licenses/LICENSE-2.0). The documentation is also released under a free documentation license, namely the [GFDL v1.3](https://www.gnu.org/licenses/fdl-1.3.en.html) license or later.
 
 ### 🖊️ Contributions
-Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in the work by you, as defined in the Apache-2.0 license, shall be licensed as above, without any additional terms or conditions.
+Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in the work by you, as defined in the Apache-2.0 license, shall be licensed as above, without any additional terms or conditions. All your contributions should abide by the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 
 
