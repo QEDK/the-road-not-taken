@@ -18,6 +18,10 @@ The real question always is, what will you do about it? 🤔
 
 So take a step back and immerse yourself in this journey - one we are sure you will enjoy. 🍂
 
+## 🕹️ Where can I play this?
+
+Our game is hosted with Netlify, here you go: [trnt.space](https://trnt.space). Good luck, traveler! 🎮
+
 ## 👷 Who are we?
 
 This game was built by [Ridham Bhat](https://github.com/ridhambhat), [Rachit Gupta](https://github.com/dotrachit), [Sakshi Rambhia](https://github.com/Sakshi16) and [Ankit Maity](https://github.com/QEDK).
