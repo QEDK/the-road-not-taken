@@ -3,7 +3,7 @@ import {FBXLoader} from 'https://unpkg.com/three@0.121.1/examples/jsm/loaders/FB
 import {OrbitControls} from 'https://unpkg.com/three@0.121.1/examples/jsm/controls/OrbitControls.js';
 
 //HOMEPAGE ELEMENTS
-var startButton, gameElements, navButtons, navButLeft, navButRight;
+var startButton, gameElements, loadingScreen, navButLeft, navButRight, world;
 
 //GAME ELEMENTS
 var clock = new THREE.Clock();
@@ -28,8 +28,9 @@ var leafHeight = 1500;
 var walkAngle = 0.0;
 var turnEnabled = false;
 var lastPos;
-var cameraTarget;
+var cameraFinalY = 140;
 var stopPoint;
+var cameraTarget;
 
 var choices;
 var choicesDone = [];
@@ -37,9 +38,16 @@ var playerWealth = 50;
 var playerHealth = 50;
 var playerWealthBar, playerHealthBar;
 var intersectionElementBeforeChoice;
+var intersectionElementResult;
 var htmlLeftChoiceTitle, htmlRightChoiceTitle, htmlQuestionTitle;
+var htmlResultTitle, htmlWealthResultIcon, htmlHealthResultIcon;
 var currentQuestion, cqTitle, cqLeftChoice, cqRightChoice, cqLeftTitle, cqRightTitle, cqLeftResponse, cqRightResponse, cqLeftMoneyChange, cqRightMoneyChange, cqLeftHealthChange, cqRightHealthChange, cqLeftIsAlive, cqRightIsAlive;
-
+var isPlayerLoaded = false;
+var isLeafLoaded = false;
+var isRoadLoaded = false;
+var isBgLoaded = false;
+var isLoadingScreenVisible = true;
+var isResultBeingDisplayed = false;
 
 fetch("../src/choices.json")
 .then(response => {
@@ -73,23 +81,36 @@ function init(){
 	cameraTarget = new THREE.Vector3(90, 100, -400);
     camera.lookAt(cameraPoint);
 
-    var hemiLight = new THREE.HemisphereLight( 0xffffbb,  0xffffff, .3 );
+    var ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
+
+    var hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.6 );
+    hemiLight.position.set( 0, 500, 0 );
     scene.add( hemiLight );
 
-    var shadowLight = new THREE.DirectionalLight(0xffffff, .8);
-    shadowLight.position.set(1, 1, 1);
- 	scene.add(shadowLight);
 
-	var directionLight = new THREE.DirectionalLight( 0xffffff );
-	directionLight.position.set( 0, 1000, -1000 );
-	directionLight.castShadow = true;
-	directionLight.shadow.camera.top = 100;
-	directionLight.shadow.camera.bottom = - 400;
-	directionLight.shadow.camera.left = - 100;
-	directionLight.shadow.camera.right = 400;
-    scene.add( directionLight );
+    var dirLight = new THREE.DirectionalLight( 0xffffff, 1 );
+    dirLight.position.set( -1, 0.75, 1 );
+    dirLight.position.multiplyScalar( 50);
+    dirLight.name = "dirlight";
+    scene.add(dirLight);
+    dirLight.castShadow = true;
+    dirLight.shadow.MapWidth = dirLight.shadow.MapHeight = 1024*2;
      
-    scene.add(new THREE.AmbientLight(0x777777))
+    scene.add(new THREE.AmbientLight(0x777777));
+
+    var cubeTextureLoader = new THREE.CubeTextureLoader();
+    cubeTextureLoader.setPath( '../3d_assets/Sky/' );
+    var cubeTexture = cubeTextureLoader.load( [
+        'px.jpg', 'nx.jpg',
+        'py.jpg', 'ny.jpg',
+        'pz.jpg', 'nz.jpg',
+    ], ()=>{
+        console.log("BG loaded");
+        isBgLoaded = true;
+        scene.background = cubeTexture;
+    } );
+    scene.background = cubeTexture;
 
     container = document.getElementById('canvas');
     homepage = document.getElementById('homepage');
@@ -100,6 +121,9 @@ function init(){
         camera.aspect = window.innerWidth/ window.innerHeight;
         camera.updateProjectionMatrix()
     });
+
+    loadingScreen = document.getElementById('loading-screen');
+    world = document.getElementById('world');
 
     startButton = document.getElementById('gameStart');
     gameElements = document.getElementById('game-elements');
@@ -116,9 +140,15 @@ function init(){
     playerWealthBar.value = playerWealth;
 
     intersectionElementBeforeChoice = document.getElementById('intersection-elements-before-choice');
+    intersectionElementResult = document.getElementById('intersection-elements-result');
+    
+    htmlResultTitle = document.getElementById('result-title');
+    htmlWealthResultIcon = document.getElementById('wealth-result-icon');
+    htmlHealthResultIcon = document.getElementById('health-result-icon');
 
     intersectionElementBeforeChoice.style.display = "none";
     gameElements.style.display = "none";
+    intersectionElementResult.style.display = 'none';
 
 
     init_keypress();
@@ -147,16 +177,49 @@ function init_keypress(){
             playerHealth += cqLeftHealthChange;
             playerWealth += cqLeftMoneyChange;
 
+            playerHealth = Math.min(playerHealth, 100);
+            playerWealth = Math.min(playerWealth, 100);
+            playerHealth = Math.max(playerHealth, 0);
+            playerWealth = Math.max(playerWealth, 0);
+
             playerHealthBar.value = playerHealth;
             playerWealthBar.value = playerWealth;
 
             console.log("RESPONSE => "+cqLeftResponse);
 
+            htmlResultTitle.innerHTML = cqLeftResponse;
+
+            if(cqLeftHealthChange < 0)
+            htmlHealthResultIcon.innerHTML = "🔽";
+            else if(cqLeftHealthChange == 0)
+            htmlHealthResultIcon.innerHTML = "🔁";
+            else
+            htmlHealthResultIcon.innerHTML = "🔼";
+
+            if(cqLeftMoneyChange < 0)
+            htmlWealthResultIcon.innerHTML = "🔽";
+            else if(cqLeftMoneyChange == 0)
+            htmlWealthResultIcon.innerHTML = "🔁";
+            else
+            htmlWealthResultIcon.innerHTML = "🔼";
+    
+
 			walkAngle += Math.PI/3; 
 			playerObject.rotation.y += Math.PI/3;
-			lastPos = anglePath[angleCurrentlyUsed].leftPath[2].position;
-            addAnglePath(true);
-            intersectionElementBeforeChoice.style.display = "none";
+            lastPos = anglePath[angleCurrentlyUsed].leftPath[2].position;
+            intersectionElementBeforeChoice.classList.remove('fade-in');
+            intersectionElementBeforeChoice.classList.add('fade-out');
+            
+            
+            setTimeout(function(){ 
+                intersectionElementBeforeChoice.style.display = "none";
+                intersectionElementResult.classList.remove('fade-out');
+                intersectionElementResult.classList.add('fade-in');
+                intersectionElementResult.style.display = "block";
+                isResultBeingDisplayed = true;
+            }, 800);
+            
+            
         }
     });
 
@@ -168,21 +231,72 @@ function init_keypress(){
             playerHealth += cqRightHealthChange;
             playerWealth += cqRightMoneyChange;
 
+            playerHealth = Math.min(playerHealth, 100);
+            playerWealth = Math.min(playerWealth, 100);
+            playerHealth = Math.max(playerHealth, 0);
+            playerWealth = Math.max(playerWealth, 0);
+
             playerHealthBar.value = playerHealth;
             playerWealthBar.value = playerWealth;
 
             console.log("RESPONSE => "+cqRightResponse);
 
+            htmlResultTitle.innerHTML = cqRightResponse;
+
+            if(cqRightHealthChange < 0)
+            htmlHealthResultIcon.innerHTML = "🔽";
+            else if(cqRightHealthChange == 0)
+            htmlHealthResultIcon.innerHTML = "🔁";
+            else
+            htmlHealthResultIcon.innerHTML = "🔼";
+
+            if(cqRightMoneyChange < 0)
+            htmlWealthResultIcon.innerHTML = "🔽";
+            else if(cqRightMoneyChange == 0)
+            htmlWealthResultIcon.innerHTML = "🔁";
+            else
+            htmlWealthResultIcon.innerHTML = "🔼";
+
 			walkAngle -= Math.PI/3; 
 			playerObject.rotation.y -= Math.PI/3;
-			lastPos = anglePath[angleCurrentlyUsed].rightPath[2].position;
+            lastPos = anglePath[angleCurrentlyUsed].rightPath[2].position;
+            intersectionElementBeforeChoice.classList.remove('fade-in');
+            intersectionElementBeforeChoice.classList.add('fade-out');
+            intersectionElementBeforeChoice.style.display = "block";
+            
+            setTimeout(function(){ 
+                intersectionElementBeforeChoice.style.display = "none";
+                intersectionElementResult.classList.remove('fade-out');
+                intersectionElementResult.classList.add('fade-in');
+                intersectionElementResult.style.display = "block";
+                isResultBeingDisplayed = true;
+            }, 800);
+        }
+    });
+
+    document.addEventListener('click', ()=>{
+        console.log("clicked!!");
+        if(isResultBeingDisplayed)
+        {
+            isResultBeingDisplayed = false;
+            if(!((playerHealth <= 0) || (playerWealth <=0)))
             addAnglePath(true);
-            intersectionElementBeforeChoice.style.display = "none";
+            intersectionElementResult.classList.remove('fade-in');
+            intersectionElementResult.classList.add('fade-out');
+            setTimeout(()=>{
+                intersectionElementResult.style.display = 'none';
+                if(((playerHealth <= 0) || (playerWealth <=0)))
+                {
+                    //game end;
+                    isResultBeingDisplayed = false;
+                }
+            });
         }
     });
 
     document.addEventListener('keypress', function(event) {
         if(event.key == ' ') {
+
             if(!zoomStart)
             {
                 homepage.style.display = "none";
@@ -190,15 +304,9 @@ function init_keypress(){
                 zoomStart = true;
                 lookAtUser = true;
                 addAnglePath(false);
+                gameElements.style.display = "block";   
             }
-            else
-            {
-                walk = !walk;
-                // if(walk)
-                // container.style.display = "none";
-                // else
-                // container.style.display = "block";
-            }
+
         }
         if(event.key == 'r' && turnEnabled) {
 			console.log("right");
@@ -218,11 +326,14 @@ function init_keypress(){
         }
 
         if(event.key == 'p') {
-			console.log("playerObjectPosition");
-            console.log(playerObject.position);
-            console.log("currPlane");
-            console.log(currPlane);
+            var cameraTargetX = playerObject.position.x - Math.sin(walkAngle) * 600;
+            var cameraTargetZ = playerObject.position.z - Math.cos(walkAngle) * 600;
+            var cameraTargetY = playerObject.position.y + cameraFinalY;
+            camera.position.x = cameraTargetX;
+            camera.position.y = cameraTargetY;
+            camera.position.z = cameraTargetZ;			
         }
+
     });
 }
 
@@ -234,8 +345,8 @@ function pause(milliseconds) {
 function init_loader(){
 
     var leafTexture = new THREE.TextureLoader().load("../3d_assets/Leaf/leaf_texture.jpg");
-    var lt1= new THREE.TextureLoader().load("../3d_assets/Leaf/leaf_t1.png");
-    var lt2 = new THREE.TextureLoader().load("../3d_assets/Leaf/leaf_t2.png");
+    var lt1= new THREE.TextureLoader().load("../3d_assets/Leaf/leaf_t1_ed.png");
+    var lt2 = new THREE.TextureLoader().load("../3d_assets/Leaf/leaf_t2_ed.png");
     // leafTexture.wrapS = THREE.RepeatWrapping;
     // leafTexture.wrapT = THREE.RepeatWrapping;
     // leafTexture.repeat.set( 4, 4 );
@@ -286,6 +397,7 @@ function init_loader(){
             leaves.push(leaf2);
             scene.add(leaf2);
         }
+        isLeafLoaded = true;
     });
 
     var playerLoader = new FBXLoader();
@@ -303,122 +415,152 @@ function init_loader(){
         playerMixer.update(0);
         playerObject.updateMatrix();
         renderer.render(scene, camera);
+        isPlayerLoaded = true;
         animate();
     });
 
-    ///////////////////
-    // GRASS
-
-    // var gtex = new THREE.TextureLoader().load("../3d_assets/Grass/grassTexture5.jpg");
-    // var gmat = new THREE.MeshBasicMaterial({map: gtex, side: THREE.DoubleSide});
-    // var ggeo = new THREE.PlaneGeometry(3 * walkscale, 3 * walkscale);
-    // var span = 50;
-    // for(var i = -span; i<=span; i++)
-    // {
-    //     grasses.push([]);
-    //     for(var j = -span; j<=span; j++)
-    //     {
-    //         var tgo = new THREE.Mesh(ggeo, gmat);
-    //         tgo.position.x = i * walkscale;
-    //         tgo.position.z = j * walkscale;
-    //         tgo.rotation.x = Math.PI/2;
-    //         tgo.position.y = yoffset - 25;
-    //         grasses[i+span][j+span] = tgo;
-    //         scene.add(tgo);
-    //     }
-            
-    // } 
-
-    // var grassLoader = new FBXLoader();
-    // grassLoader.load('../3d_assets/Grass/grass_new3.fbx', function(object3d){
-    //     console.log("grass_object");
-    //     console.log(object3d);
-    //     var grassObject = object3d;
-    //     grassObject.position.y = yoffset - 25;
-    //     grassObject.position.y = 100;
-    //     grassObject.rotation.x = Math.PI;
-
-    //     // scene.add(grassObject);
-
-    //     var gtex = new THREE.TextureLoader().load("../3d_assets/Grass/grassTexture2.png");
-    //     var gmat = new THREE.MeshBasicMaterial({map: gtex, side: THREE.DoubleSide});
-    //     // var gmesh = new THREE.Mesh(grassObject.children[0].geometry, gmat);
-
-    //     for(var i = -50; i<=50; i++)
-    //     {
-    //         grasses.push([]);
-    //         for(var j = -50; j<=50; j++)
-    //         {
-    //             var tgo = new THREE.Mesh(grassObject.children[0].geometry, gmat);
-    //             tgo.position.x = i * walkscale;
-    //             tgo.position.z = j * walkscale;
-    //             tgo.rotation.x = Math.PI;
-    //             tgo.position.y = 100;
-    //             grasses[i+50][j+50] = tgo;
-    //             scene.add(tgo);
-    //         }
-            
-    //     }        
-    // });
-
-	var roadTexture = new THREE.TextureLoader().load("../3d_assets/Road/road_texture_2.jpg");
+    var roadTexture = new THREE.TextureLoader().load("../3d_assets/Road/road_texture_2.jpg");
 	var roadTriTexture = new THREE.TextureLoader().load("../3d_assets/Road/road_tri_texture_4.png");
 	var roadMaterial = new THREE.MeshBasicMaterial({map: roadTexture, side: THREE.DoubleSide});
 	var roadTriMaterial = new THREE.MeshBasicMaterial({map: roadTriTexture, side: THREE.DoubleSide});
-	var roadGeo = new THREE.PlaneGeometry(3 * walkscale, 3 * walkscale);
+    var roadGeo = new THREE.PlaneGeometry(3 * walkscale, 3 * walkscale);
+
+    var treeLoader = new FBXLoader();
+    treeLoader.load('../3d_assets/Tree/3DPaz_fir-tree_01.FBX', (object3d)=>{
+        console.log(object3d);
+        var treeObject = object3d;
+        var treeGeo = treeObject.children[0].geometry;
+        var treeMat = treeObject.children[0].material;
+
+        ///Roads Now
+        for(var j = 0; j<3; j++)
+        {
+            var ap = new Object();
+            ap.leftPath = [];
+            ap.rightPath = [];
+            ap.leftTrees = [];
+            ap.rightTrees = [];
+            for(var i = 0; i<3; i++)
+            {
+                ap.leftPath.push(new THREE.Mesh(roadGeo, roadMaterial));
+                ap.leftPath[i].rotation.x = Math.PI/2;
+                ap.leftPath[i].position.y = -3000 - i*7;
+                scene.add(ap.leftPath[i]);
+                
+                var lts = [];
+                var lt1 = new THREE.Mesh(treeGeo, treeMat);
+                lt1.scale.set(20,30,20);
+                lt1.position.y = -3300 - i*300;
+                lt1.rotation.x = -Math.PI/2;
+                scene.add(lt1);
+                var lt2 = new THREE.Mesh(treeGeo, treeMat);
+                lt2.scale.set(20,30,20);
+                lt2.position.y = -3300 - i*300;
+                lt2.rotation.x = -Math.PI/2;
+                scene.add(lt2);
+                lts.push(lt1);
+                lts.push(lt2);
+                ap.leftTrees.push(lts);
+                
+                ap.rightPath.push(new THREE.Mesh(roadGeo, roadMaterial));
+                ap.rightPath[i].rotation.x = Math.PI/2;
+                ap.rightPath[i].position.y = -3000 - i*2;
+                scene.add(ap.rightPath[i]);
+
+                var rts = [];
+                var rt1 = new THREE.Mesh(treeGeo, treeMat);
+                rt1.scale.set(20,30,20);
+                rt1.position.y = -3300 - i*300;
+                rt1.rotation.x = -Math.PI/2;
+                scene.add(rt1);
+                var rt2 = new THREE.Mesh(treeGeo, treeMat);
+                rt2.scale.set(20,30,20);
+                rt2.position.y = -3300 - i*300;
+                rt2.rotation.x = -Math.PI/2;
+                scene.add(rt2);
+                rts.push(rt1);
+                rts.push(rt2);
+                ap.rightTrees.push(rts);
+            }
+            ap.tri = new THREE.Mesh(roadGeo, roadTriMaterial);
+            ap.tri.rotation.x = Math.PI/2;
+            ap.tri.position.y = -2500 - j*10;
+            anglePath.push(ap);
+            scene.add(ap.tri);
+        }
+
+        for(var i = 0; i<3; i++)
+        {
+            var iniroad = new THREE.Mesh(roadGeo, roadMaterial);
+            iniroad.rotation.x = Math.PI/2;
+            iniroad.position.z = zoffset + i * walkscale*3;
+            iniroad.position.y = yoffset;
+            lastPos = iniroad.position;
+            scene.add(iniroad);
+
+            var t1 = new THREE.Mesh(treeGeo, treeMat);
+            t1.scale.set(20,30,20);
+            t1.position.y = yoffset;
+            t1.position.x = - walkscale * 1.4;
+            t1.position.z = zoffset + i * walkscale*3;
+            t1.rotation.x = -Math.PI/2;
+            scene.add(t1);
+            var t2 = new THREE.Mesh(treeGeo, treeMat);
+            t2.scale.set(20,30,20);
+            t2.position.y = yoffset;
+            t2.position.x = walkscale * 1.4;
+            t2.position.z = zoffset + i * walkscale*3;
+            t2.rotation.x = -Math.PI/2;
+            scene.add(t2);
+
+        }
+
+
+        for(var i = -12; i < 2; i+=3)
+        {
+            var road = new THREE.Mesh(roadGeo, roadMaterial);
+            road.rotation.x = Math.PI/2;
+            road.position.z = walkscale * i + zoffset;
+            road.position.y = yoffset;
+            scene.add(road);
+
+            var t1 = new THREE.Mesh(treeGeo, treeMat);
+            t1.scale.set(20,30,20);
+            t1.position.y = yoffset;
+            t1.position.x = - walkscale * 1.4;
+            t1.position.z = zoffset + i * walkscale;
+            t1.rotation.x = -Math.PI/2;
+            scene.add(t1);
+            var t2 = new THREE.Mesh(treeGeo, treeMat);
+            t2.scale.set(20,30,20);
+            t2.position.y = yoffset;
+            t2.position.x = walkscale * 1.4;
+            t2.position.z = zoffset + i * walkscale;
+            t2.rotation.x = -Math.PI/2;
+            scene.add(t2);
+        }
+        
+        planesDrawn = totalNoOfRoads;
+        isRoadLoaded = true;
+
+
+    });
+
+	
+    
+
 	
 
-	for(var j = 0; j<3; j++)
-	{
-		var ap = new Object();
-		ap.leftPath = [];
-		ap.rightPath = [];
-		for(var i = 0; i<3; i++)
-		{
-			ap.leftPath.push(new THREE.Mesh(roadGeo, roadMaterial));
-			ap.leftPath[i].rotation.x = Math.PI/2;
-			ap.leftPath[i].position.y = -3300 - i*2;
-			scene.add(ap.leftPath[i]);
-			ap.rightPath.push(new THREE.Mesh(roadGeo, roadMaterial));
-			ap.rightPath[i].rotation.x = Math.PI/2;
-			ap.rightPath[i].position.y = -3000 - i*2;
-			scene.add(ap.rightPath[i]);
-		}
-		ap.tri = new THREE.Mesh(roadGeo, roadTriMaterial);
-		ap.tri.rotation.x = Math.PI/2;
-		ap.tri.position.y = -2500 - j*10;
-		anglePath.push(ap);
-		scene.add(ap.tri);
-	}
-
-    for(var i = 0; i<3; i++)
-    {
-        var iniroad = new THREE.Mesh(roadGeo, roadMaterial);
-        iniroad.rotation.x = Math.PI/2;
-        iniroad.position.z = zoffset + i * walkscale*3;
-        iniroad.position.y = yoffset;
-        lastPos = iniroad.position;
-        scene.add(iniroad);
-    }
-
-
-    for(var i = -12; i < 2; i+=3)
-    {
-        var road = new THREE.Mesh(roadGeo, roadMaterial);
-        road.rotation.x = Math.PI/2;
-        road.position.z = walkscale * i + zoffset;
-        road.position.y = yoffset;
-        scene.add(road);
-	}
 	
-    planesDrawn = totalNoOfRoads;
 
     var fontlink = 'https://unpkg.com/three@0.121.1//examples/fonts/helvetiker_regular.typeface.json';
+
+   
     
-    var textLoader = new THREE.FontLoader();
-    textLoader.load(fontlink, (font)=>{
-        textFont = font;
-    });
+    // var textLoader = new THREE.FontLoader();
+    // textLoader.load(fontlink, (font)=>{
+    //     textFont = font;
+    // });
 
 }
 
@@ -503,12 +645,38 @@ function addAnglePath(situation)
 		anglePath[an].leftPath[it].position.x = RX + walkscale*3*it * Math.sin(la);
 		anglePath[an].leftPath[it].position.z = RZ + walkscale*3*it * Math.cos(la);
 		anglePath[an].leftPath[it].rotation.z = -walkAngle - Math.PI/3;
-		anglePath[an].leftPath[it].position.y = yoffset;
+        anglePath[an].leftPath[it].position.y = yoffset;
+
+        var lltx = RX + walkscale*3*it * Math.sin(la) - Math.sin(ra) * walkscale * 1.4;
+        var lltz = RZ + walkscale*3*it * Math.cos(la) - Math.cos(ra) * walkscale * 1.4;
+        var lrtx = RX + walkscale*3*it * Math.sin(la) + Math.sin(ra) * walkscale * 1.4;
+        var lrtz = RZ + walkscale*3*it * Math.cos(la) + Math.cos(ra) * walkscale * 1.4;
+
+        anglePath[an].leftTrees[it][0].position.x = lltx;
+        anglePath[an].leftTrees[it][0].position.z = lltz;
+        anglePath[an].leftTrees[it][0].position.y = yoffset;
+        anglePath[an].leftTrees[it][1].position.x = lrtx;
+        anglePath[an].leftTrees[it][1].position.z = lrtz;
+        anglePath[an].leftTrees[it][1].position.y = yoffset;
+                
 
 		anglePath[an].rightPath[it].position.x = LX + walkscale*3*it * Math.sin(ra);
 		anglePath[an].rightPath[it].position.z = LZ + walkscale*3*it * Math.cos(ra);
 		anglePath[an].rightPath[it].rotation.z = -walkAngle + Math.PI/3;
-		anglePath[an].rightPath[it].position.y = yoffset;
+        anglePath[an].rightPath[it].position.y = yoffset;
+        
+        var rltx = LX + walkscale*3*it * Math.sin(ra) - Math.sin(la) * walkscale * 1.4;
+        var rltz = LZ + walkscale*3*it * Math.cos(ra) - Math.cos(la) * walkscale * 1.4;
+        var rrtx = LX + walkscale*3*it * Math.sin(ra) + Math.sin(la) * walkscale * 1.4;
+        var rrtz = LZ + walkscale*3*it * Math.cos(ra) + Math.cos(la) * walkscale * 1.4;
+
+        anglePath[an].rightTrees[it][0].position.x = rltx;
+        anglePath[an].rightTrees[it][0].position.z = rltz;
+        anglePath[an].rightTrees[it][0].position.y = yoffset;
+        anglePath[an].rightTrees[it][1].position.x = rrtx;
+        anglePath[an].rightTrees[it][1].position.z = rrtz;
+        anglePath[an].rightTrees[it][1].position.y = yoffset;
+
 	}
 
 	var textpos = new THREE.Vector3();
@@ -522,9 +690,20 @@ function addAnglePath(situation)
 }
 
 function animate(){
+
+    if(isLoadingScreenVisible && isPlayerLoaded && isLeafLoaded && isRoadLoaded && isBgLoaded)
+    {
+        setTimeout(()=>{
+            fade(loadingScreen)
+        }, 1500);
+        isLoadingScreenVisible = false;
+        world.style.display = 'block';
+        console.log("done!!!");
+    }
     
     if(zoomIteration < 100 && zoomStart)
     {
+        gameElements.style.display = "block";
         camera.position.y -= 6;
         camera.position.z += 6;
         zoomIteration++;
@@ -561,6 +740,8 @@ function animate(){
             playerObject.position.x = stopPoint.x;
             playerObject.position.y = stopPoint.y;
             playerObject.position.z = stopPoint.z;
+            intersectionElementBeforeChoice.classList.remove('fade-out');
+            intersectionElementBeforeChoice.classList.add('fade-in');
             intersectionElementBeforeChoice.style.display = "block"; 
             
             if(choices.length == 0)
@@ -573,7 +754,7 @@ function animate(){
             currentQuestion = choices[qno];
             choicesDone.push(currentQuestion);
 
-            array_remove_index_by_value(choices, qno);
+            choices.splice(qno, 1);
 
             cqTitle = Object.keys(currentQuestion);
             var chs = currentQuestion[cqTitle];
@@ -598,13 +779,28 @@ function animate(){
 
             cqLeftResponse = Object.keys(cqlr)[0];
             cqLeftIsAlive = cqlr[cqLeftResponse][0];
-            cqLeftHealthChange = cqlr[cqLeftResponse][2];
-            cqLeftMoneyChange = cqlr[cqLeftResponse][1];
-
+            if(cqLeftIsAlive != "end"){
+                cqLeftHealthChange = cqlr[cqLeftResponse][2];
+                cqLeftMoneyChange = cqlr[cqLeftResponse][1];
+            }
+            else
+            {
+                cqLeftHealthChange = -playerHealth;
+                cqLeftMoneyChange = -playerWealth;
+            }
+            
             cqRightResponse = Object.keys(cqrr)[0];
             cqRightIsAlive = cqrr[cqRightResponse][0];
-            cqRightHealthChange = cqrr[cqRightResponse][2];
-            cqRightMoneyChange = cqrr[cqRightResponse][1];
+            if(cqRightIsAlive != "end") 
+            {
+                cqRightHealthChange = cqrr[cqRightResponse][2];
+                cqRightMoneyChange = cqrr[cqRightResponse][1];
+            }
+            else
+            {
+                cqRightHealthChange = -playerHealth;
+                cqRightMoneyChange = -playerWealth;
+            }            
 
             //ADD THE CALCULATED VALUES TO ELEMENTS
             htmlQuestionTitle.innerHTML = cqTitle;
@@ -630,7 +826,7 @@ function animate(){
         
         var cameraTargetX = playerObject.position.x - Math.sin(walkAngle) * 600;
         var cameraTargetZ = playerObject.position.z - Math.cos(walkAngle) * 600;
-        var cameraTargetY = playerObject.position.y + 40;
+        var cameraTargetY = playerObject.position.y + cameraFinalY;
 
         if(cameraTargetX < camera.position.x) camera.position.x -= 3;
         if(cameraTargetX > camera.position.x) camera.position.x += 3;
@@ -684,6 +880,19 @@ function animate(){
     requestAnimationFrame(animate);
 }
 
+function fade(element) {
+    var op = 1;  // initial opacity
+    var timer = setInterval(function () {
+        if (op <= 0.1){
+            clearInterval(timer);
+            element.style.display = 'none';
+        }
+        element.style.opacity = op;
+        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+        op -= op * 0.5;
+    }, 50);
+}
+
 function addText(question, leftChoice, rightChoice, position)
 {
 	console.log("here");
@@ -709,14 +918,6 @@ function addText(question, leftChoice, rightChoice, position)
     mesh.rotation.y = Math.PI + walkAngle;
     mesh.position.y = position.y + ( geo.boundingBox.max.y - geo.boundingBox.min.y );
     scene.add(mesh); //add text
-}
-
-function array_remove_index_by_value(arr, item)
-{
-    for (var i = arr.length; i--;)
-    {
-    if (arr[i] === item) {arr.splice(i, 1);}
-    }
 }
 
 

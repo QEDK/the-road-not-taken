@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>The Road Not Taken</title>
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/homepage.css">
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
     <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet">
-    <script scr="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+    <!-- <script scr="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script> -->
+    <script src="https://code.createjs.com/1.0.0/soundjs.min.js"></script>
     
 </head>
 <body>
     <script type="module" src="js/main.js"></script>
-    <div id="world">
+    <div id="world" style="display: none">
         <div id="homepage">
             <div class="floating">
                 <p class="vcenter">The Road<br />Not Taken</p>
@@ -25,8 +26,8 @@
               </div>
         </div>
         <div id="canvas">
-            <div id="game-elements" class = "absgameposition">
-                <div class="nes-container with-title customwidth top-progress-bar relgameposition">
+            <div id="game-elements" class = "absgameposition fade-in">
+                <div class="nes-container with-title customwidth top-progress-bar relgameposition cardbackground">
                     <span class="title">Vitals</span> 
                    <i class="nes-icon coin is-small"></i>&nbsp;<progress id="wealthbar" class="nes-progress customheight" value="50" max="100"></progress>
                       <br />
@@ -35,23 +36,23 @@
             </div>
             
             <div id="intersection-elements-before-choice" class="absintersectionposition" >
-                <div class="nes-container is-rounded is-centered choices relintersectionposition" >
+                <div class="nes-container is-rounded is-centered choices relintersectionposition cardbackground" >
                     <div class="nes-table-responsive">
                         <table class="nes-table is-centered" style="background-color: transparent;">
                             <tbody>
                                 <tr>
-                                    <h3 id="question-title">What's in the name?</h3>
+                                    <h4 id="question-title">What's in the name?</h4>
                                 </tr>
                                 <tr>
-                                    <td style="width: 50%;">
+                                    <td class="halfcell">
                                         <div class="nes-container is-rounded is-centered leftchoice">
                                             <p id="left-choice-title">Nothing</p>
                                             <button id="nav-left"type="button" class="nes-btn is-primary">Left</button>
                                         </div>
                                     </td>
-                                    <td style="width: 50%;">
+                                    <td class="halfcell">
                                         <div class="nes-container is-rounded is-centered rightchoice">
-                                            <p id="right-choice-title"></p>Everything</p>
+                                            <p id="right-choice-title">Everything</p>
                                             <button id="nav-right" type="button" class="nes-btn is-primary">Right</button>
                                         </div>
                                     </td>
@@ -62,7 +63,37 @@
                 </div>
             </div>
 
+            <div id="intersection-elements-result" class="absintersectionposition">
+                <div class="nes-container is-rounded is-centered results relintersectionposition cardbackground">
+                    <div class="nes-table-responsive">
+                      <table class="nes-table is-centered" style="background-color: transparent;">
+                        <tbody>
+                          <tr>
+                            <h4 id="result-title">A very huge question about your life and your love? Why not? Says Aristotle, apparently he picked it up from his dear friend, Morty but who will tell him about true philosophy... sad.</h4>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td class="halfcell">
+                              <div class="nes-container is-rounded is-centered leftchoice">
+                                <p><span class="is-emoji"><i class="nes-icon coin"></i> Wealth</p></span>
+                                <button id="wealth-result-icon" type="button" class="nes-btn is-disabled is-emoji">🔼</button>
+                              </div>
+                            </td>
+                            <td class="halfcell">
+                              <div class="nes-container is-rounded is-centered rightchoice">
+                                <p><span class="is-emoji"><i class="nes-icon heart"></i> Happiness</p></span>
+                                <button id="health-result-icon" type="button" class="nes-btn is-disabled is-emoji">🔽</button>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+            </div>
+
         </div>
     </div>
+    <img id="loading-screen" class="loading-screen" src="./3d_assets/Loading/load.gif"></div>
 </body>
 </html>

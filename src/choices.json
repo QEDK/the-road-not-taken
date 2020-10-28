@@ -22,7 +22,7 @@
       {
         "Fight him and get it back.":[
           {
-            "You beat him up on the street to get it back. You end up feeling embarassed.":[
+            "You beat him up on the street to get it back. You end up feeling embarrassed.":[
               "continue",
               5,
               -10
@@ -101,7 +101,7 @@
         ]
       },
       {
-        "Although unwilling, you tell them you will go the party.":[
+        "Although unwilling, you tell them you will go to the party.":[
           {
             "You feel uncomfortable and quite sick after dancing all night.":[
               "continue",
@@ -885,7 +885,7 @@
         ]
       },
       {
-        "Tell the truth and ask for receipt so that you can return it.":[
+        "Tell the truth and ask for a receipt so that you can return it.":[
           {
             "The friend feels bad and can't find the receipt.":[
               "continue",
@@ -925,7 +925,7 @@
   {
     "Your ex-girlfriend is dying from a rare disease and the treatment is both risky and expensive. What will you do?":[
       {
-        "Given in all of your money to save their life.":[
+        "Give in all of your money to save their life.":[
           {
             "They die due to organ failure during surgery.":[
               "continue",
@@ -961,7 +961,7 @@
         ]
       },
       {
-        "Setup a fundraiser for them.":[
+        "Set up a fundraiser for them.":[
           {
             "Not a lot of people contributed so you had to chip in personal cash.":[
               "continue",
@@ -1095,7 +1095,7 @@
   {
     "It's Friday and you feel like spending, so you go to a nearby casino. You're at the roulette table, what do you choose?":[
       {
-        "Red":[
+        "You decide to go with red.":[
           {
             "You almost lose all your life savings.":[
               "continue",
@@ -1120,7 +1120,7 @@
         ]
       },
       {
-        "Black":[
+        "You decide to go with black.":[
           {
             "You almost lose all your life savings.":[
               "continue",
@@ -1223,7 +1223,7 @@
         ]
       },
       {
-        "I would rather stay home.":[
+        "I would rather stay at home.":[
           {
             "You don't go on the trip and waste your time doing nothing.":[
               "continue",
