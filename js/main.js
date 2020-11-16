@@ -32,6 +32,12 @@ var cameraFinalY = 140;
 var stopPoint;
 var cameraTarget;
 
+//Typing animation homepage
+const typedTextSpan = document.querySelector(".typed-text");
+const cursorSpan = document.querySelector(".cursor");
+const typingDelay = 100;
+let charIndex = 0;
+
 var choices;
 var choicesDone = [];
 var playerWealth = 50;
@@ -116,6 +122,9 @@ function init(){
         renderer.setSize(window.innerWidth, window.innerHeight);
         camera.aspect = window.innerWidth/ window.innerHeight;
         camera.updateProjectionMatrix();
+
+        //Question Title width
+        titleResponsive();
     });
 
     loadingScreen = document.getElementById('loading-screen');
@@ -156,10 +165,8 @@ function init(){
     createjs.Sound.on("fileload", ()=>{
         isTrackLoaded = true;
     });
-    
-    intersectionElementBeforeChoice.style.display = "none";
-    gameElements.style.display = "none";
-    intersectionElementResult.style.display = 'none';
+
+    titleResponsive();    
 
     init_keypress();
     init_loader();
@@ -288,10 +295,10 @@ function init_keypress(){
                     htmlGameOverScreen.classList.add('fade-in');
                     htmlGameOverScreen.style.display = "block";
                 }
+               
             }, 800);
         }
     });
-
 
     htmlReplayButton.addEventListener('click',()=>{
         location.reload();
@@ -524,9 +531,9 @@ function init_loader(){
     });
 
     var roadTexture = new THREE.TextureLoader().load("../3d_assets/Road/road_texture_2.jpg");
-	  var roadTriTexture = new THREE.TextureLoader().load("../3d_assets/Road/road_tri_texture_4.png");
-	  var roadMaterial = new THREE.MeshBasicMaterial({map: roadTexture, side: THREE.DoubleSide});
-	  var roadTriMaterial = new THREE.MeshBasicMaterial({map: roadTriTexture, side: THREE.DoubleSide});
+	var roadTriTexture = new THREE.TextureLoader().load("../3d_assets/Road/road_tri_texture_4.png");
+	var roadMaterial = new THREE.MeshBasicMaterial({map: roadTexture, side: THREE.DoubleSide});
+	var roadTriMaterial = new THREE.MeshBasicMaterial({map: roadTriTexture, side: THREE.DoubleSide});
     var roadGeo = new THREE.PlaneGeometry(3 * walkscale, 3 * walkscale);
 
     var treeLoader = new FBXLoader();
@@ -534,7 +541,7 @@ function init_loader(){
         var treeObject = object3d;
         var treeGeo = treeObject.children[0].geometry;
         var treeMat = treeObject.children[0].material;
-      
+
         ///Roads Now
         for(var j = 0; j<3; j++)
         {
@@ -768,6 +775,7 @@ function animate(){
         }, 1500);
         isLoadingScreenVisible = false;
         world.style.display = 'block';
+        setTimeout(type, 2000);
     }
     
     if(zoomIteration < 100 && zoomStart)
@@ -945,4 +953,32 @@ function fade(element) {
     }, 50);
 }
 
-init();
+function type() {
+    var text = "Press SPACE or click START to get started";
+    if (charIndex < text.length) {
+        if(!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
+        typedTextSpan.textContent += text.charAt(charIndex);
+        charIndex++;
+        setTimeout(type, typingDelay);
+    } 
+}
+
+function titleResponsive()
+{
+    var qtd = document.getElementById('qtitlediv');
+    var rtd = document.getElementById('rtitlediv');
+    if(window.innerWidth < window.innerHeight)
+    { 
+        qtd.classList.add('custom-double-width');
+        rtd.classList.add('custom-double-width');
+    }
+    else
+    {
+        qtd.classList.remove('custom-double-width');
+        rtd.classList.remove('custom-double-width');
+    }
+}
+
+document.addEventListener("DOMContentLoaded", ()=>{
+    init();
+});

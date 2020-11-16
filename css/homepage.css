@@ -40,50 +40,46 @@
     height: 50vh;
     font-size: 3em;
     text-align: center;
-    width: 50%;
+    width: 80%;
     margin: 1em auto 1em auto;
   }
-  
-  .typewriter {
+
+  .typecontainer {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .typecontainer p {
+    padding: 0.5rem;
+    text-align: center;
     overflow: hidden;
-    /* Ensures the content is not revealed until the animation */
-    width: 42em;
-    border-right: 0.2em solid black;
-    /* The typewriter cursor */
-    white-space: nowrap;
-    /* Keeps the content on a single line */
-    margin: 0 auto;
-    /* Gives that scrolling effect as the typing happens */
-    animation:
-  
-      typing 4s steps(60, end),
-      blink-caret 0.75s step-end infinite;
   }
-  
-  /* The typing effect */
-  @keyframes typing {
-    from {
-      width: 0%;
-    }
-  
-    to {
-      width: 42em;
-    }
+
+  .typecontainer p span.typed-text {
+    color: #222222;
   }
-  
-  /* The typewriter cursor effect */
-  @keyframes blink-caret {
-  
-    from,
-    to {
-      border-color: transparent;
-    }
-  
-    50% {
-      border-color: black;
-    }
+
+  .typecontainer p span.cursor {
+    display: inline-block;
+    background-color:#222222;
+    margin-left: 0.1rem;
+    width: 3px;
+    animation: blink 1s infinite;
   }
-  
+
+  .typecontainer p span.cursor.typing {
+    animation: none;
+  }
+
+  @keyframes blink {
+    0%  { background-color: #222222 }
+    49% { background-color: #222222; }
+    50% { background-color: transparent; }
+    99% { background-color: transparent; }
+    100%  { background-color: #222222 }
+  }
 
 .heading{
     top: 50%;
