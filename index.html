@@ -1,123 +1,129 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>The Road Not Taken</title>
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/homepage.css">
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
     <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet">
     <script src="./src/soundjs.min.js"></script>
+    <link rel="stylesheet" href="css/main.css?v=2">
+    <link rel="stylesheet" href="css/homepage.css?v=2">
     <link rel="shortcut icon" href="src/favicon.ico"/>
     
 </head>
 <body>
-    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/main.js?v=2"></script>
     <div id="world" style="display: none">
         <div id="homepage">
             <div class="floating">
-                <p class="vcenter">The Road<br />Not Taken</p>
+                <p class="vcenter">The Road<br/>Not Taken</p>
                 <div class="nes-container is-rounded is-centered">
-                  <p class="title typewriter">Press SPACE or click START to get started</p><br />
+                  <div class="typecontainer">
+                    <!-- Press SPACE or click START to get started -->
+                    <p><span class="typed-text"></span><span class="cursor">&nbsp;</span></p>
+                  </div> 
                   <button id="gameStart" type="Button" class="nes-btn is-warning">START</button>
                 </div>
               </div>
         </div>
         <div id="canvas">
             <div id="game-elements" class = "absgameposition fade-in">
-                <div class="nes-container with-title customwidth top-progress-bar relgameposition cardbackground">
+                <div class="nes-container with-title customvitalwidth top-progress-bar relgameposition cardbackground">
                     <span class="title">Vitals</span> 
                    <i class="nes-icon coin is-small"></i>&nbsp;<progress id="wealthbar" class="nes-progress customheight" value="50" max="100"></progress>
                       <br />
                       <i class="nes-icon heart is-small"></i>&nbsp;<progress id="healthbar" class="nes-progress customheight" value="50" max="100"></progress>
                 </div>
             </div>
-            
+
             <div id="intersection-elements-before-choice" class="absintersectionposition" >
-                <div class="nes-container is-rounded is-centered choices relintersectionposition cardbackground" >
-                    <div class="nes-table-responsive">
-                        <table class="nes-table is-centered" style="background-color: transparent;">
-                            <tbody>
-                                <tr>
-                                    <h4 id="question-title">What's in the name?</h4>
-                                </tr>
-                                <tr>
-                                    <td class="halfcell">
-                                        <div class="nes-container is-rounded is-centered leftchoice">
-                                            <p id="left-choice-title">Nothing</p>
-                                            <button id="nav-left"type="button" class="nes-btn is-primary">Left</button>
-                                        </div>
-                                    </td>
-                                    <td class="halfcell">
-                                        <div class="nes-container is-rounded is-centered rightchoice">
-                                            <p id="right-choice-title">Everything</p>
-                                            <button id="nav-right" type="button" class="nes-btn is-primary">Right</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div id="intersection-elements-result" class="absintersectionposition">
-                <div class="nes-container is-rounded is-centered results relintersectionposition cardbackground">
-                    <div class="nes-table-responsive">
+              <div class="nes-container is-rounded is-centered choices relintersectionposition cardbackground" >
+                  <div class="nes-table-responsive">
                       <table class="nes-table is-centered" style="background-color: transparent;">
-                        <tbody>
-                          <tr>
-                            <h4 id="result-title">A very huge question about your life and your love? Why not? Says Aristotle, apparently he picked it up from his dear friend, Morty but who will tell him about true philosophy... sad.</h4>
-                          </tr>
-                          <tr>
-                            <td></td>
-                            <td class="halfcell">
-                              <div class="nes-container is-rounded is-centered leftchoice">
-                                <p><span class="is-emoji"><i class="nes-icon coin"></i> Wealth</p></span>
-                                <button id="wealth-result-icon" type="button" class="nes-btn is-disabled is-emoji">🔼</button>
-                              </div>
-                            </td>
-                            <td class="halfcell">
-                              <div class="nes-container is-rounded is-centered rightchoice">
-                                <p><span class="is-emoji"><i class="nes-icon heart"></i> Happiness</p></span>
-                                <button id="health-result-icon" type="button" class="nes-btn is-disabled is-emoji">🔽</button>
-                              </div>
-                            </td>
-                          </tr>
-                        </tbody>
+                          <tbody>
+                              <tr class="table-title">
+                                <div id="qtitlediv">
+                                  <h4 id="question-title">What's in the name?</h4>
+                                </div>
+                              </tr>
+                              <tr>
+                                  <td class="halfcell custom-option-cell-height">
+                                      <div class="nes-container is-rounded is-centered leftchoice">
+                                          <p id="left-choice-title">Nothing</p>
+                                          <button id="nav-left"type="button" class="nes-btn is-primary">Left</button>
+                                      </div>
+                                  </td>
+                                  <td class="halfcell custom-option-cell-height">
+                                      <div class="nes-container is-rounded is-centered rightchoice">
+                                          <p id="right-choice-title">Everything</p>
+                                          <button id="nav-right" type="button" class="nes-btn is-primary">Right</button>
+                                      </div>
+                                  </td>
+                              </tr>
+                          </tbody>
                       </table>
-                    </div>
                   </div>
-            </div>
+              </div>
+          </div>
 
-            <div id="game-over-screen" class="absintersectionposition">
-
-              <div class="nes-container is-rounded is-centered results relintersectionposition cardbackground">
+          <div id="intersection-elements-result" class="absintersectionposition">
+            <div class="nes-container is-rounded is-centered results relintersectionposition cardbackground">
                 <div class="nes-table-responsive">
                   <table class="nes-table is-centered" style="background-color: transparent;">
                     <tbody>
-                      <tr>
-                        <td>
-                          <h1>Game Over</h1>
-                        </td>
-                      <tr>
-                        <td>
-                          <h4 id="death-title">A very long message from one CSS designer to another, I swear to god, this is the worst experience of my life. Please spare me from this 13th level of hell, Dante Aligheri.
-                          </h4>
-                        </td>
+                      <tr class="table-title">
+                        <div id="rtitlediv">
+                          <h4 id="result-title">A very huge question about your life and your love? Why not? Says Aristotle, apparently he picked it up from his dear friend, Morty but who will tell him about true philosophy... sad.</h4>
+                        </div>
                       </tr>
                       <tr>
-                        <td>
-                          <button type="button" class="nes-btn is-primary" id="replay-button">Replay</button>
+                        <td></td>
+                        <td class="halfcell custom-option-cell-height">
+                          <div class="nes-container is-rounded is-centered leftchoice">
+                            <p><span class="is-emoji"><i class="nes-icon coin"></i> Wealth</p></span>
+                            <button id="wealth-result-icon" type="button" class="nes-btn is-disabled is-emoji">🔼</button>
+                          </div>
+                        </td>
+                        <td class="halfcell custom-option-cell-height">
+                          <div class="nes-container is-rounded is-centered rightchoice">
+                            <p><span class="is-emoji"><i class="nes-icon heart"></i> Happiness</p></span>
+                            <button id="health-result-icon" type="button" class="nes-btn is-disabled is-emoji">🔽</button>
+                          </div>
                         </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
               </div>
+          </div>
+
+          <div id="game-over-screen" class="absintersectionposition">
+            <div class="nes-container is-rounded is-centered results relintersectionposition cardbackground">
+              <div class="nes-table-responsive">
+                <table class="nes-table is-centered" style="background-color: transparent;">
+                  <tbody>
+                    <tr>
+                      <td>
+                        <h1>Game Over</h1>
+                      </td>
+                    <tr>
+                      <td>
+                        <h4 id="death-title">A very long message from one CSS designer to another, I swear to god, this is the worst experience of my life. Please spare me from this 13th level of hell, Dante Aligheri.
+                        </h4>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <button type="button" class="nes-btn is-primary" id="replay-button">Replay</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
+          </div>
 
         </div>
       </div>
